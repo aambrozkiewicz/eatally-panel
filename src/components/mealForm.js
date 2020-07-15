@@ -3,6 +3,13 @@ import { Form, FormGroup, Button, Spinner } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
 import { setMeal } from '../actions';
 
+const initialState = {
+    id: null,
+    name: '',
+    price: '',
+    loading: false,
+}
+
 const reducer = (state, action) => {
     switch (action.type) {
         case 'load':
@@ -25,13 +32,6 @@ const reducer = (state, action) => {
         default:
             return state;
     }
-}
-
-const initialState = {
-    id: null,
-    name: '',
-    price: '',
-    loading: false,
 }
 
 const MealForm = ({ className, ...props }) => {
@@ -63,7 +63,7 @@ const MealForm = ({ className, ...props }) => {
             );
 
             dispatch({ type: 'clear' });
-            // props.onSuccess();
+            props.onSuccess && props.onSuccess();
         }, 1000);
     }
 
