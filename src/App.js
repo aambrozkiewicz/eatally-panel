@@ -19,8 +19,8 @@ function App() {
 
   return (
     <div className="d-flex flex-wrap" style={{ height: '100vh' }}>
-      <Col md="6" className="p-2">
-        <div style={{ width: '375px', margin: '0 0 0 auto' }} className="px-3">
+      <Col md="7" className="p-2">
+        <div style={{ width: '575px', margin: '0 0 0 auto' }} className="px-3">
           <div className="d-flex justify-content-between align-items-center">
             <h3>Menu na</h3>
             <div>
@@ -33,7 +33,7 @@ function App() {
           <MealList onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
         </div>
       </Col>
-      <Col md="6" xs="12" className="p-2 shadow" style={{ backgroundColor: '#fafafa' }}>
+      <Col md="5" xs="12" className="p-2 shadow" style={{ backgroundColor: '#fafafa' }}>
         <div style={{ width: '375px' }} className="px-3">
           {editing ?
             <>
