@@ -1,64 +1,47 @@
-import React, { useState } from 'react';
-import MealForm from './components/mealForm';
-import MealList from './components/mealList';
-import { Col, Button } from 'react-bootstrap';
-import { Calendar2Date } from 'react-bootstrap-icons';
-import { useDispatch } from 'react-redux';
-import { deleteMeal } from './actions';
-import DatePicker from 'react-datepicker';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { Container, Navbar } from 'react-bootstrap';
+import DailyMenu from './routes/dailyMenu';
+import Dashboard from './routes/dashboard';
 
-import "react-datepicker/dist/react-datepicker.css";
+import "./App.css";
 
 function App() {
-  const [editing, setEditing] = useState(false);
-  const dispatch = useDispatch();
-
-  function destroy(meal) {
-    dispatch(deleteMeal(meal));
-  }
-
   return (
-    <div className="d-flex flex-wrap" style={{ height: '100vh' }}>
-      <Col md="7" className="p-2">
-        <div style={{ width: '575px', margin: '0 0 0 auto' }} className="px-3">
-          <div className="d-flex justify-content-between align-items-center">
-            <h3>Menu na</h3>
-            <div>
-              <DatePicker
-                customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
-              />
-            </div>
+    <Router>
+      <div className="App d-flex">
+        <Navbar bg="dark" variant="dark" className="flex-column">
+          <Link to="/" className="navbar-brand">eatally</Link>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto flex-column">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">Początek</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/daily-menu" className="nav-link">Menu codzienne</Link>
+              </li>
+            </ul>
           </div>
-          <h1>Czwartek, 21 lipca</h1>
-          <MealList onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
+        </Navbar>
+        <div className="main-container">
+          <Container>
+            <Switch>
+              <Route path="/daily-menu">
+                <DailyMenu />
+              </Route>
+              <Route path="/">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Container>
         </div>
-      </Col>
-      <Col md="5" xs="12" className="p-2 shadow" style={{ backgroundColor: '#fafafa' }}>
-        <div style={{ width: '375px' }} className="px-3">
-          {editing ?
-            <>
-              <div className="d-flex justify-content-between align-items-center">
-                <h3>Edycja</h3>
-                <Button
-                  size="sm"
-                  variant="outline-danger"
-                  onClick={() => setEditing(false)}
-                >
-                  ✕
-              </Button>
-              </div>
-
-              <MealForm className="pt-2" meal={editing} onSuccess={() => { setEditing(false) }}></MealForm>
-            </>
-            :
-            <div>
-              <h3>Nowa pozycja</h3>
-              <MealForm className="pt-2"></MealForm>
-            </div>
-          }
-        </div>
-      </Col>
-    </div>
+      </div>
+    </Router>
   );
 }
 

@@ -2,7 +2,7 @@ import { configureStore, createReducer } from '@reduxjs/toolkit';
 import { setMeal, deleteMeal } from './actions';
 
 const INITIAL_STATE = {
-    1: { id: 1, name: 'test', price: 16.4 },
+    1: { id: 1, name: 'Kurczak w panierce', price: 16.49 },
 };
 
 const mealsReducer = createReducer(INITIAL_STATE, {

@@ -7,6 +7,7 @@ const Meals = styled.ul`
     list-style: none;
     padding: 0;
 `;
+
 const Meal = styled.li`
     transition: all .3s ease-in-out;
 

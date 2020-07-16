@@ -5,8 +5,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
+import { registerLocale, setDefaultLocale } from 'react-datepicker';
+import pl from 'date-fns/locale/pl';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-datepicker/dist/react-datepicker.css";
+
+registerLocale('pl', pl);
+setDefaultLocale('pl');
 
 ReactDOM.render(
   <Provider store={store}>
