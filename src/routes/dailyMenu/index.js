@@ -25,6 +25,7 @@ function App() {
           <div>
             <DatePicker
               customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
+              popperPlacement="bottom-end"
               onChange={setDate}
             />
           </div>

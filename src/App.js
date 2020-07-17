@@ -20,8 +20,12 @@ function App() {
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
           <Navbar.Collapse id="sidebar-navbar-nav">
             <Nav className="sidebar-nav">
-              <Nav.Link as={Link} to="/">Początek</Nav.Link>
-              <Nav.Link as={Link} to="/daily-menu">Menu codzienne</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Początek
+              </Nav.Link>
+              <Nav.Link as={Link} to="/daily-menu">
+                Menu codzienne
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
