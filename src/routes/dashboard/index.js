@@ -3,7 +3,7 @@ import { Jumbotron } from 'react-bootstrap';
 
 const Dashboard = () => {
     return (
-        <Jumbotron className="mt-2">
+        <Jumbotron>
             <h1>Nowy kociołek!</h1>
             <p>To jest jeszcze lepszy kociołek w SPA.</p>
         </Jumbotron>

@@ -13,29 +13,27 @@ function App() {
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
 
-  function destroy(meal) { 
+  function destroy(meal) {
     dispatch(deleteMeal(meal));
   }
 
   return (
-    <Row style={{ height: '100vh' }}>
-      <Col md="7" className="p-2">
-        <div className="px-3">
-          <div className="d-flex justify-content-between align-items-center">
-            <h3>Menu na</h3>
-            <div>
-              <DatePicker
-                customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
-                onChange={setDate}
-              />
-            </div>
+    <Row>
+      <Col md="7">
+        <div className="d-flex justify-content-between align-items-center">
+          <h3>Menu na</h3>
+          <div>
+            <DatePicker
+              customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
+              onChange={setDate}
+            />
           </div>
-          <h1>{format(date, 'iiii, d MMM')}</h1>
-          <MealList onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
         </div>
+        <h1>{format(date, 'iiii, d MMM')}</h1>
+        <MealList onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
       </Col>
-      <Col md="5" xs="12" className="p-2" style={{ backgroundColor: '#fafafa' }}>
-        <div className="px-3">
+      <Col md="5" xs="12">
+        <div>
           {editing ?
             <>
               <div className="d-flex justify-content-between align-items-center">

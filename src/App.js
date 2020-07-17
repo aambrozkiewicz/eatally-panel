@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Container, Navbar } from 'react-bootstrap';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import DailyMenu from './routes/dailyMenu';
 import Dashboard from './routes/dashboard';
 
@@ -14,22 +14,19 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <div className="App d-flex">
-        <Navbar bg="dark" variant="dark" className="flex-column">
-          <Link to="/" className="navbar-brand">eatally</Link>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto flex-column">
-              <li className="nav-item">
-                <Link to="/" className="nav-link">Początek</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/daily-menu" className="nav-link">Menu codzienne</Link>
-              </li>
-            </ul>
-          </div>
+      <div className="wrapper">
+        <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
+          <Navbar.Brand as={Link} to="/">eatally</Navbar.Brand>
+          <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
+          <Navbar.Collapse id="sidebar-navbar-nav">
+            <Nav className="sidebar-nav">
+              <Nav.Link as={Link} to="/">Początek</Nav.Link>
+              <Nav.Link as={Link} to="/daily-menu">Menu codzienne</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         <div className="main-container">
-          <Container>
+          <Container className="pt-2">
             <Switch>
               <Route path="/daily-menu">
                 <DailyMenu />
