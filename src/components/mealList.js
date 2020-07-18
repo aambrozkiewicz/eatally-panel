@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { PencilSquare, Trash } from 'react-bootstrap-icons'
 
 const Meals = styled.ul`
@@ -18,11 +17,11 @@ const Meal = styled.li`
 `;
 
 const MealList = (props) => {
-    const meals = useSelector(state => state.meals);
+    const { meals } = props;
 
     return (
         <Meals>
-            {Object.values(meals).map(meal => (
+            {meals.map(meal => (
                 <Meal
                     key={meal.id}
                     className="border p-3 my-2 rounded d-flex justify-content-between"
@@ -35,6 +34,7 @@ const MealList = (props) => {
                     </div>
                 </Meal>
             ))}
+            {!meals.length && <div>Nic tu jeszcze nie ma ;(</div>}
         </Meals>
     );
 };

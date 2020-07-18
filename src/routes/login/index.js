@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { setToken } from '../../utils/auth';
 import { useHistory, useLocation } from 'react-router-dom';
+import { apiUrl } from '../../utils/api';
+import { DoorOpen } from 'react-bootstrap-icons';
 
-const Login = (props) => {
+const Login = () => {
     const history = useHistory();
     const location = useLocation();
     const [error, setError] = useState();
@@ -15,7 +17,7 @@ const Login = (props) => {
 
         try {
             const response = await fetch(
-                `${process.env['REACT_APP_API_URL']}/auth/login`,
+                `${apiUrl}/auth/login`,
                 {
                     method: 'post',
                     headers: { 'Content-Type': 'application/json' },
@@ -27,12 +29,17 @@ const Login = (props) => {
                 setError('Błędny login lub hasło');
             } else {
                 const jsonResponse = await response.json();
-                setToken(jsonResponse);
+                setToken(jsonResponse.access_token);
                 
                 let { from } = location.state || { from: { pathname: "/" } };
                 history.replace(from);
             }
         } catch (e) {}
+    }
+
+    function demo() {
+        setEmail(process.env['REACT_APP_DEMO_EMAIL']);
+        setPassword(process.env['REACT_APP_DEMO_PASSWORD']);
     }
 
     return (
@@ -42,7 +49,7 @@ const Login = (props) => {
                 <Form onSubmit={login} noValidate>
                     <Form.Group>
                         <Form.Label>E-mail</Form.Label>
-                        <Form.Control type="email" placeholder="Twó adres e-mail" isInvalid={error} value={email} onChange={e => setEmail(e.currentTarget.value)} />
+                        <Form.Control type="email" placeholder="Twój adres e-mail" isInvalid={error} value={email} onChange={e => setEmail(e.currentTarget.value)} />
                         <Form.Control.Feedback type="invalid">
                             {error}
                         </Form.Control.Feedback>
@@ -51,6 +58,9 @@ const Login = (props) => {
                         <Form.Label>Hasło</Form.Label>
                         <Form.Control type="password" placeholder="Twój sekret" value={password} onChange={e => setPassword(e.currentTarget.value)} />
                     </Form.Group>
+                    <Button variant="outline-dark" onClick={demo}>
+                        <DoorOpen size="20" /> Demo
+                    </Button>
                     <Button variant="primary" type="submit" className="float-right">
                         Logowanie
                     </Button>

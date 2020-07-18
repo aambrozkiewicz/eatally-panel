@@ -1,11 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setMeal, deleteMeal } from './actions';
+import { setMeal, deleteMeal, fetchMeals } from './actions';
 
-const INITIAL_STATE = {
-    1: { id: 1, name: 'Kurczak w panierce', price: 16.49 },
-};
-
-const mealsReducer = createReducer(INITIAL_STATE, {
+const mealsReducer = createReducer({}, {
+    [fetchMeals.fulfilled]: (state, action) => {
+        return action.payload.reduce((acc, curr) => {
+            acc[curr.id] = curr;
+            return acc;
+        }, {});
+    },
     [setMeal]: (state, action) => {
         state[action.payload.id] = action.payload;
     },

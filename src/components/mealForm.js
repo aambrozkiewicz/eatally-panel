@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { Form, FormGroup, Button, Spinner } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
-import { setMeal } from '../modules/meals/actions';
+import { updateMeal } from '../modules/meals/actions';
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
 const fieldAction = createAction('field');
@@ -56,7 +56,7 @@ const MealForm = ({ className, ...props }) => {
         dispatch(fetchingAction());
 
         setTimeout(() => {
-            globalDispatch(setMeal({ id, name, price }));
+            globalDispatch(updateMeal({ id, name, price }));
             dispatch(clearAction());
             props.onSuccess && props.onSuccess();
         }, 1000);
