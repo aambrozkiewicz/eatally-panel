@@ -58,7 +58,7 @@ function App() {
             :
             <div>
               <h3>Nowa pozycja</h3>
-              <MealForm className="pt-2"></MealForm>
+              <MealForm date={date} className="pt-2"></MealForm>
             </div>
           }
         </div>

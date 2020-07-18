@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { setToken } from '../../utils/auth';
+import { Button, Form } from 'react-bootstrap';
+import { DoorOpen } from 'react-bootstrap-icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import { apiUrl } from '../../utils/api';
-import { DoorOpen } from 'react-bootstrap-icons';
+import { setToken } from '../../utils/auth';
 
 const Login = () => {
     const history = useHistory();

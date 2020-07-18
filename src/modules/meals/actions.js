@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiFetch } from '../../utils/api';
 import { formatISO } from 'date-fns';
+import { apiFetch } from '../../utils/api';
 
 export const fetchMeals = createAsyncThunk(
     'meals/fetchAll',
@@ -9,19 +9,7 @@ export const fetchMeals = createAsyncThunk(
         const response = await apiFetch(`meals?date=${dateQuery}`, {
             method: 'get'
         });
-        return await response.json()
-    }
-);
-
-export const updateMeal = createAsyncThunk(
-    'meals/update',
-    async (meal, thunkAPI) => {
-        const response = await apiFetch(`meal/${meal.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify(meal),
-        });
-        const responseMeal = await response.json();
-        thunkAPI.dispatch(setMeal(responseMeal));
+        return response.json();
     }
 );
 
@@ -35,4 +23,11 @@ export const setMeal = createAction('setMeal', meal => {
     };
 });
 
-export const deleteMeal = createAction('deleteMeal');
+export const deleteMeal = createAsyncThunk(
+    'meals/delete',
+    async (meal, thunkAPI) => {
+        apiFetch(`meal/${meal.id}`, {
+            method: 'DELETE',
+        });
+    }
+);

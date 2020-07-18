@@ -1,13 +1,14 @@
-import React, { useReducer, useEffect } from 'react';
-import { Form, FormGroup, Button, Spinner } from "react-bootstrap";
-import { useDispatch } from 'react-redux';
-import { updateMeal } from '../modules/meals/actions';
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import React, { useEffect, useReducer } from 'react';
+import { Button, Form, FormGroup, Spinner } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
+import { setMeal } from '../../modules/meals/actions';
+import { apiFetch } from '../../utils/api';
 
-const fieldAction = createAction('field');
-const fetchingAction = createAction('fetching');
-const clearAction = createAction('clear');
-const loadAction = createAction('load');
+const setField = createAction('setField');
+const setLoading = createAction('setLoading');
+const clear = createAction('clear');
+const loadMeal = createAction('loadMeal');
 
 const initialState = {
     id: null,
@@ -17,24 +18,22 @@ const initialState = {
 };
 
 const reducer = createReducer(initialState, {
-    [fieldAction]: (state, action) => {
+    [setField]: (state, action) => {
         state[action.payload.key] = action.payload.value;
     },
-    [fetchingAction]: (state, action) => {
-        state.loading = true;
-    },
-    [clearAction]: (state, action) => {
+    [clear]: (state, action) => {
         state.id = null;
         state.name = '';
         state.price = '';
         state.loading = false;
     },
-    [loadAction]: (state, action) => {
+    [loadMeal]: (state, action) => {
         return {
             ...state,
             ...action.payload
         };
-    }
+    },
+    [setLoading]: state => { state.loading = true },
 });
 
 const MealForm = ({ className, ...props }) => {
@@ -44,22 +43,34 @@ const MealForm = ({ className, ...props }) => {
 
     useEffect(() => {
         if (props.meal) {
-            dispatch(loadAction(props.meal));
+            dispatch(loadMeal(props.meal));
         } else {
-            dispatch(clearAction());
+            dispatch(clear());
         }
     }, [props.meal]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(fetchingAction());
+        dispatch(setLoading());
 
-        setTimeout(() => {
-            globalDispatch(updateMeal({ id, name, price }));
-            dispatch(clearAction());
-            props.onSuccess && props.onSuccess();
-        }, 1000);
+        let response;
+        if (id !== null) {
+            response = await apiFetch(`meal/${id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ name, price }),
+            });
+        } else {
+            response = await apiFetch('meal', {
+                method: 'POST',
+                body: JSON.stringify({ name, price, date: props.date }),
+            });
+        }
+
+        const responseMeal = await response.json();
+        globalDispatch(setMeal(responseMeal));
+        dispatch(clear());
+        props.onSuccess && props.onSuccess();
     }
 
     return (
@@ -69,7 +80,7 @@ const MealForm = ({ className, ...props }) => {
                 <Form.Control
                     type="text"
                     value={name}
-                    onChange={e => dispatch(fieldAction({ key: 'name', value: e.currentTarget.value }))}
+                    onChange={e => dispatch(setField({ key: 'name', value: e.currentTarget.value }))}
                     placeholder="Pierś z kurczaka w sosie własnym 👨‍🍳" />
             </FormGroup>
             <Form.Group controlId="formPrice">
@@ -78,7 +89,7 @@ const MealForm = ({ className, ...props }) => {
                     type="number"
                     step="0.01"
                     value={price}
-                    onChange={e => dispatch(fieldAction({ key: 'price', value: e.currentTarget.value }))}
+                    onChange={e => dispatch(setField({ key: 'price', value: e.currentTarget.value }))}
                     placeholder="np. 10,99 PLN" />
             </Form.Group>
             <Button type="submit" variant="outline-primary" disabled={loading}>

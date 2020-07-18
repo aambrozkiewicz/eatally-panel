@@ -11,8 +11,8 @@ const mealsReducer = createReducer({}, {
     [setMeal]: (state, action) => {
         state[action.payload.id] = action.payload;
     },
-    [deleteMeal]: (state, action) => {
-        delete state[action.payload.id];
+    [deleteMeal.fulfilled]: (state, action) => {
+        delete state[action.meta.arg.id];
     }
 });
 
