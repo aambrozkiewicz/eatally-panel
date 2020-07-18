@@ -43,7 +43,7 @@ const Login = () => {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: '100vh', backgroundColor: '#fafafa' }}>
+        <div className="d-flex align-items-center flex-column" style={{ height: '100vh', backgroundColor: '#fafafa' }}>
             <h1 style={{ textShadow: "0px 1px 7px rgba(255, 255, 255, 1)" }} className="text-muted">eatally</h1>
             <div className="shadow p-3 border rounded" style={{ width: '350px', backgroundColor: '#fff' }}>
                 <Form onSubmit={login} noValidate>

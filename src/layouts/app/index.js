@@ -37,6 +37,7 @@ function App() {
               <Nav.Link as={Link} to={`${url}/daily-menu`}>
                 Menu codzienne
               </Nav.Link>
+              <Nav.Link href="#" onClick={logout} className="d-lg-none">Wyloguj</Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
