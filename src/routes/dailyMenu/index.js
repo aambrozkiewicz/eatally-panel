@@ -4,7 +4,7 @@ import MealList from '../../components/mealList';
 import { Col, Button, Row } from 'react-bootstrap';
 import { Calendar2Date } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
-import { deleteMeal } from '../../actions';
+import { deleteMeal } from '../../modules/meals/actions';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
 

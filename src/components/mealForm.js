@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { Form, FormGroup, Button, Spinner } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
-import { setMeal } from '../actions';
+import { setMeal } from '../modules/meals/actions';
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
 const fieldAction = createAction('field');

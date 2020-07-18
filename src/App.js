@@ -3,45 +3,44 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom";
-import { Container, Navbar, Nav } from 'react-bootstrap';
-import DailyMenu from './routes/dailyMenu';
-import Dashboard from './routes/dashboard';
+import Login from './routes/login';
+import AppLayout from './layouts/app';
+import {getToken} from './utils/auth';
 
-import "./App.css";
+function ProtectedRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        getToken() ? (
+          children
+        ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+      }
+    />
+  );
+}
 
 function App() {
   return (
     <Router>
-      <div className="wrapper">
-        <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
-          <Navbar.Brand as={Link} to="/">eatally</Navbar.Brand>
-          <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
-          <Navbar.Collapse id="sidebar-navbar-nav">
-            <Nav className="sidebar-nav">
-              <Nav.Link as={Link} to="/">
-                Początek
-              </Nav.Link>
-              <Nav.Link as={Link} to="/daily-menu">
-                Menu codzienne
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <div className="main-container">
-          <Container className="pt-2">
-            <Switch>
-              <Route path="/daily-menu">
-                <DailyMenu />
-              </Route>
-              <Route path="/">
-                <Dashboard />
-              </Route>
-            </Switch>
-          </Container>
-        </div>
-      </div>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <ProtectedRoute path="/panel">
+          <AppLayout />
+        </ProtectedRoute>
+        <Redirect from="*" to="/panel" />
+      </Switch>
     </Router>
   );
 }
