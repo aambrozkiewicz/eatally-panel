@@ -10,7 +10,7 @@ import {
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import DailyMenu from '../../routes/dailyMenu';
 import Dashboard from '../../routes/dashboard';
-import { setToken } from '../../utils/auth';
+import { removeToken } from '../../utils/auth';
 
 import "./app.css";
 
@@ -19,7 +19,7 @@ function App() {
   const { path, url } = useRouteMatch();
 
   const logout = () => {
-    setToken(null);
+    removeToken(null);
     history.push("/login");
   };
 
