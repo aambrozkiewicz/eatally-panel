@@ -1,4 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import { formatISO } from 'date-fns';
 import React, { useEffect, useReducer } from 'react';
 import { Button, Form, FormGroup, Spinner } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -63,7 +64,7 @@ const MealForm = ({ className, ...props }) => {
         } else {
             response = await apiFetch('meal', {
                 method: 'POST',
-                body: JSON.stringify({ name, price, date: props.date }),
+                body: JSON.stringify({ name, price, date: formatISO(props.date, { representation: 'date' }) }),
             });
         }
 
