@@ -1,13 +1,11 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
+  Redirect, Route, Switch
 } from "react-router-dom";
-import Login from './routes/login';
 import AppLayout from './layouts/app';
-import {getToken} from './utils/auth';
+import Login from './routes/login';
+import { getToken } from './utils/auth';
 
 function ProtectedRoute({ children, ...rest }) {
   return (

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setMeal, deleteMeal, fetchMeals } from './actions';
+import { deleteMeal, fetchMeals, setMeal } from './actions';
 
 const mealsReducer = createReducer({}, {
     [fetchMeals.fulfilled]: (state, action) => {
@@ -13,7 +13,7 @@ const mealsReducer = createReducer({}, {
     },
     [deleteMeal.fulfilled]: (state, action) => {
         delete state[action.meta.arg.id];
-    }
+    },
 });
 
 export default mealsReducer;

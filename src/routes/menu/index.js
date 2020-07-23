@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Calendar2Date } from 'react-bootstrap-icons';
+import DatePicker from 'react-datepicker';
+import { useDispatch, useSelector } from 'react-redux';
 import MealForm from '../../components/mealForm';
 import MealList from '../../components/mealList';
-import { Col, Button, Row } from 'react-bootstrap';
-import { Calendar2Date } from 'react-bootstrap-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../modules/categories/actions';
 import { deleteMeal, fetchMeals } from '../../modules/meals/actions';
-import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
 
-function App() {
+function Menu() {
   const [editing, setEditing] = useState(false);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
@@ -17,6 +18,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchMeals(date));
   }, [date, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   function destroy(meal) {
     dispatch(deleteMeal(meal));
@@ -67,4 +72,4 @@ function App() {
   );
 }
 
-export default App;
+export default Menu;
