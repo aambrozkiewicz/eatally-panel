@@ -36,8 +36,8 @@ function Menu() {
     <Row>
       <Col md="7">
         <ToggleButtonGroup name="type" onChange={setDate} className="w-100">
-          <ToggleButton value={new Date()}>Codzienne</ToggleButton>
-          <ToggleButton value={null}>Stałe</ToggleButton>
+          <ToggleButton value={new Date()} variant="outline-primary">Codzienne</ToggleButton>
+          <ToggleButton value={''} variant="outline-primary">Stałe</ToggleButton>
         </ToggleButtonGroup>
         <hr />
         <div className="d-flex justify-content-between">
