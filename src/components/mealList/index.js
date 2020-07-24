@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Fade } from 'react-bootstrap';
 import { PencilSquare, Trash } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import { Meal, Meals } from './styles';
@@ -18,10 +19,12 @@ const MealItem = ({ meal, categories, ...props }) => {
             </div>
             <div className="pl-2 text-right" style={{ whiteSpace: "nowrap" }}>
                 {meal.price} zł
-                {active && <div>
-                    <PencilSquare color="royalblue" onClick={() => props.onEdit(meal)} />
-                    <Trash color="red" onClick={() => props.onDelete(meal)} /> 
-                </div>}
+                <Fade in={active}>
+                    <div>
+                        <PencilSquare color="royalblue" onClick={() => props.onEdit(meal)} />
+                        <Trash color="red" onClick={() => props.onDelete(meal)} />
+                    </div>
+                </Fade>
             </div>
         </Meal>
     );
