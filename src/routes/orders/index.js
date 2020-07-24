@@ -1,9 +1,9 @@
+import { format, formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { Calendar2Date } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
-import { apiFetch } from '../../utils/api';
+import { authFetch } from '../../utils/api';
 
 const ListNone = styled.ul`
     list-style: none;
@@ -23,7 +23,7 @@ const HooverBox = styled.div`
 const Details = styled.div`
     width: 100%;
     border-bottom: 1px solid #ccc;
-    @media (min-width: 768px) {  // lg
+    @media (min-width: 768px) {
         width: 200px;
         border-bottom: 0;
         border-right: 1px solid #ccc;
@@ -32,11 +32,13 @@ const Details = styled.div`
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
+    const [date, setDate] = useState(new Date());
     const total = orders.reduce((acc, curr) => acc + curr.total, 0);
 
     useEffect(() => {
         async function data() {
-            const response = await apiFetch('orders', {
+            const today = formatISO(date, { representation: 'date' });
+            const response = await authFetch(`orders?today=${today}`, {
                 method: 'get'
             });
             const jsonResponse = await response.json();
@@ -45,7 +47,7 @@ const Orders = () => {
         }
 
         data();
-    }, []);
+    }, [date]);
 
     return (
         <>
@@ -54,14 +56,15 @@ const Orders = () => {
                     <h1 style={{ margin: 0 }}>Zamówienia</h1>
                     Na sumę <strong>{total}</strong> zł
                 </div>
-                <div>
+                <div className="text-right">
                     <DatePicker
-                        customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
+                        customInput={<Button size="sm" variant="outline-secondary">{format(date, 'iiii, d MMM')}</Button>}
                         popperPlacement="bottom-end"
-                        disabled
+                        onChange={setDate}
                     />
                 </div>
             </div>
+            {!orders.length && 'Brak zamówień'}
             {orders.map(order => (
                 <HooverBox key={order.id} className="border rounded d-flex flex-wrap flex-lg-nowrap mb-2">
                     <Details style={{ whiteSpace: "nowrap", backgroundColor: '#fafafa' }}
@@ -75,8 +78,8 @@ const Orders = () => {
                     </Details>
                     <div className="flex-grow-1 p-2">
                         <ListNone>
-                            {order.meals.map(meal => (
-                                <li>
+                            {order.meals.map((meal, i) => (
+                                <li key={i}>
                                     <div className="d-flex justify-content-between">
                                         <div>
                                             {meal.qty} x {meal.name}

@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Calendar2Date } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +13,15 @@ function Menu() {
   const [editing, setEditing] = useState(false);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
-  const meals = useSelector(state => Object.values(state.meals).filter(m => m.date !== null));
+  const meals = useSelector(
+    state => Object.values(state.meals).filter(m => m.date !== null)
+  );
+  const fixedMenu = useSelector(
+    state => Object.values(state.meals).filter(m => m.date === null)
+  );
 
   useEffect(() => {
-    dispatch(fetchMeals(date));
+    date && dispatch(fetchMeals(date));
   }, [date, dispatch]);
 
   useEffect(() => {
@@ -30,18 +35,26 @@ function Menu() {
   return (
     <Row>
       <Col md="7">
-        <div className="d-flex justify-content-between align-items-center">
-          <h3>Menu na</h3>
-          <div>
-            <DatePicker
-              customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
-              popperPlacement="bottom-end"
-              onChange={setDate}
-            />
-          </div>
+        <ToggleButtonGroup name="type" onChange={setDate} className="w-100">
+          <ToggleButton value={new Date()}>Codzienne</ToggleButton>
+          <ToggleButton value={null}>Stałe</ToggleButton>
+        </ToggleButtonGroup>
+        <hr />
+        <div className="d-flex justify-content-between">
+          {date ?
+            <>
+            <h3>Menu na {format(date, 'iiii, d MMM')}</h3>
+            <div>
+              <DatePicker
+                customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="20" /></Button>}
+                popperPlacement="bottom-end"
+                onChange={setDate}
+              />
+            </div>
+            </>
+          : <h3>Stałe menu</h3>}
         </div>
-        <h1>{format(date, 'iiii, d MMM')}</h1>
-        <MealList meals={meals} onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
+        <MealList meals={date ? meals : fixedMenu} onEdit={meal => { setEditing(meal) }} onDelete={destroy} />
       </Col>
       <Col md="5" xs="12">
         <div>
@@ -52,10 +65,7 @@ function Menu() {
                 <Button
                   size="sm"
                   variant="outline-danger"
-                  onClick={() => setEditing(false)}
-                >
-                  ✕
-              </Button>
+                  onClick={() => setEditing(false)}>✕</Button>
               </div>
 
               <MealForm className="pt-2" meal={editing} onSuccess={() => { setEditing(false) }}></MealForm>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { DoorOpen } from 'react-bootstrap-icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import { apiUrl } from '../../utils/api';
@@ -30,11 +30,11 @@ const Login = () => {
             } else {
                 const jsonResponse = await response.json();
                 setToken(jsonResponse.access_token);
-                
+
                 let { from } = location.state || { from: { pathname: "/" } };
                 history.replace(from);
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     function demo() {
@@ -43,29 +43,32 @@ const Login = () => {
     }
 
     return (
-        <div className="d-flex align-items-center flex-column" style={{ height: '100vh', backgroundColor: '#fafafa' }}>
-            <h1 style={{ textShadow: "0px 1px 7px rgba(255, 255, 255, 1)" }} className="text-muted">eatally</h1>
-            <div className="shadow p-3 border rounded" style={{ width: '350px', backgroundColor: '#fff' }}>
-                <Form onSubmit={login} noValidate>
-                    <Form.Group>
-                        <Form.Label>E-mail</Form.Label>
-                        <Form.Control type="email" placeholder="Twój adres e-mail" isInvalid={error} value={email} onChange={e => setEmail(e.currentTarget.value)} />
-                        <Form.Control.Feedback type="invalid">
-                            {error}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Hasło</Form.Label>
-                        <Form.Control type="password" placeholder="Twój sekret" value={password} onChange={e => setPassword(e.currentTarget.value)} />
-                    </Form.Group>
-                    <Button variant="outline-dark" onClick={demo}>
-                        <DoorOpen size="20" /> Demo
-                    </Button>
-                    <Button variant="primary" type="submit" className="float-right">
-                        Logowanie
-                    </Button>
-                </Form>
-            </div>
+        <div className="d-flex align-items-center" style={{ height: '100vh', backgroundColor: '#fafafa' }}>
+            <Container>
+                <Row className="justify-content-center">
+                    <Col md="7">
+                        <h1>eatally</h1>
+                        <p className="lead">Zaloguj się aby kontynuować</p>
+                        <Form onSubmit={login} noValidate>
+                            <Form.Group>
+                                <Form.Control type="email" placeholder="Twój adres e-mail" isInvalid={error} value={email} onChange={e => setEmail(e.currentTarget.value)} />
+                                <Form.Control.Feedback type="invalid">
+                                    {error}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Control type="password" placeholder="Twój sekret" value={password} onChange={e => setPassword(e.currentTarget.value)} />
+                            </Form.Group>
+                            <Button variant="outline-dark" onClick={demo}>
+                                <DoorOpen size="20" /> Demo
+                            </Button>
+                            <Button variant="primary" type="submit" className="float-right">
+                                Logowanie
+                            </Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }
