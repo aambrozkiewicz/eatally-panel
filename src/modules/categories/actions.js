@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { apiUrl } from "../../utils/api";
+import { authFetch } from "../../utils/api";
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchAll',
     async (_, thunkAPI) => {
-        const response = await fetch(`${apiUrl}/categories`);
+        const response = await authFetch(`categories`);
         return response.json();
     }
 );
