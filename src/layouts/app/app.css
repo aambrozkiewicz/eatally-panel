@@ -1,3 +1,15 @@
+.nav-link[data-toggle] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-link[data-toggle]::after {
+    transition: all ease-out 0.4s;
+}
+.nav-link[data-toggle][aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
 @media (min-width: 992px) {
     .wrapper {
         display: flex;

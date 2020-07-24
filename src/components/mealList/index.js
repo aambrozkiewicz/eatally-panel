@@ -16,7 +16,7 @@ const MealList = (props) => {
                 >
                     <div>
                         {meal.name}
-                        {meal.category_id && <div className="text-muted">{categories[meal.category_id].name}</div>}
+                        {meal.category_id && categories[meal.category_id] && <div className="text-muted">{categories[meal.category_id].name}</div>}
                     </div>
                     <div className="pl-2 text-right" style={{ whiteSpace: "nowrap" }}>
                         {meal.price} zł

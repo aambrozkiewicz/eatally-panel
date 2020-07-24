@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Collapse, Container, Nav, Navbar } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Link, Route, Switch, useHistory, useRouteMatch
@@ -13,6 +13,7 @@ import "./app.css";
 function App() {
   const history = useHistory();
   const { path, url } = useRouteMatch();
+  const [open, setOpen] = useState(false);
 
   const logout = () => {
     removeToken(null);
@@ -23,10 +24,10 @@ function App() {
     <Router>
       <div className="wrapper">
         <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
-          <Navbar.Brand as={Link} to={url}>eatally</Navbar.Brand>
+          <Navbar.Brand as={Link} to={url} className="ml-lg-2">eatally</Navbar.Brand>
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
-          <Navbar.Collapse id="sidebar-navbar-nav">
-            <Nav className="sidebar-nav">
+          <Navbar.Collapse id="sidebar-navbar-nav" className="align-items-start w-100">
+            <Nav className="sidebar-nav w-100">
               <Nav.Link as={Link} to={`${url}`}>
                 Początek
               </Nav.Link>
@@ -36,6 +37,20 @@ function App() {
               <Nav.Link as={Link} to={`${url}/menu`}>
                 Menu
               </Nav.Link>
+              <Nav.Item>
+                <Nav.Link onClick={() => setOpen(!open)}
+                  data-toggle="collapse"
+                  aria-controls="more-menu"
+                  aria-expanded={open}
+                  className="dropdown-toggle">
+                  Więcej
+                </Nav.Link>
+                <Collapse in={open}>
+                  <div id="more-menu">
+                    <Nav.Link>Hello</Nav.Link>
+                  </div>
+                </Collapse>
+              </Nav.Item>
               <Nav.Link href="#" onClick={logout} className="d-lg-none">Wyloguj</Nav.Link>
             </Nav>
           </Navbar.Collapse>

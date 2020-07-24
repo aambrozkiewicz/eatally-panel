@@ -63,7 +63,7 @@ const Orders = () => {
                 </div>
             </div>
             {orders.map(order => (
-                <HooverBox key={order.id} className="border rounded d-flex flex-wrap flex-lg-nowrap">
+                <HooverBox key={order.id} className="border rounded d-flex flex-wrap flex-lg-nowrap mb-2">
                     <Details style={{ whiteSpace: "nowrap", backgroundColor: '#fafafa' }}
                         className="p-2">
                         <ListNone>

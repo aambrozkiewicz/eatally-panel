@@ -101,7 +101,7 @@ const MealForm = ({ className, ...props }) => {
                 >
                     <option>Bez kategorii</option>
                     {Object.values(categories).map((category, i) => (
-                        <option value={category.id}>{category.name}</option>
+                        <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                 </Form.Control>
             </Form.Group>
