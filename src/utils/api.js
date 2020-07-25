@@ -1,13 +1,42 @@
-import { getToken } from "./auth";
+import { getToken, removeToken } from "./auth";
 
 export const apiUrl = process.env['REACT_APP_API_URL'];
 
-export const authFetch = (path, {...rest}) => {
-    return fetch(`${apiUrl}/${path}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getToken()}`,
-        },
-        ...rest
+export const client = async (endpoint, { body, ...config } = {}) => {
+    const token = getToken();
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    if (body) {
+        config.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(`${process.env['REACT_APP_API_URL']}/${endpoint}`, {
+        method: config.body || 'GET',
+        headers: { ...headers, ...config.headers },
+        ...config,
     });
-}
+
+    if (response.status === 401) { 
+        removeToken();
+        window.location.assign(window.location);
+        return;
+    }
+
+    if (response.status === 204) {
+        return;
+    }
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+        return data;
+    } else {
+        return Promise.reject(data);
+    }
+};

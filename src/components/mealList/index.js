@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Fade } from 'react-bootstrap';
-import { PencilSquare, Trash } from 'react-bootstrap-icons';
+import { Button, Fade } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Meal, Meals } from './styles';
 
@@ -21,8 +20,8 @@ const MealItem = ({ meal, categories, ...props }) => {
                 {meal.price} zł
                 <Fade in={active}>
                     <div>
-                        <PencilSquare color="royalblue" onClick={() => props.onEdit(meal)} />
-                        <Trash color="red" onClick={() => props.onDelete(meal)} />
+                        <Button size="sm" onClick={() => props.onEdit(meal)}>Edycja</Button>{' '}
+                        <Button size="sm" variant="outline-danger" onClick={() => props.onDelete(meal)}>Usuń</Button>
                     </div>
                 </Fade>
             </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Button, Form, FormGroup, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { setMeal } from '../../modules/meals/actions';
-import { authFetch } from '../../utils/api';
+import { client } from '../../utils/api';
 
 const setField = createAction('setField');
 const setLoading = createAction('setLoading');
@@ -60,24 +60,23 @@ const MealForm = ({ className, ...props }) => {
 
         let response;
         if (id !== null) {
-            response = await authFetch(`meal/${id}`, {
+            response = await client(`meal/${id}`, {
                 method: 'PATCH',
-                body: JSON.stringify({ name, category_id, price }),
+                body: { name, category_id, price },
             });
         } else {
-            response = await authFetch('meal', {
+            response = await client('meal', {
                 method: 'POST',
-                body: JSON.stringify({
-                    name, 
-                    price, 
-                    category_id, 
+                body: {
+                    name,
+                    price,
+                    category_id,
                     date: props.date ? formatISO(props.date, { representation: 'date' }) : null,
-                }),
+                },
             });
         }
 
-        const responseMeal = await response.json();
-        globalDispatch(setMeal(responseMeal));
+        globalDispatch(setMeal(response));
         dispatch(clear());
         props.onSuccess && props.onSuccess();
     }

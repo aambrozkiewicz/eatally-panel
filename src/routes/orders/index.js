@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
-import { authFetch } from '../../utils/api';
+import { client } from '../../utils/api';
 
 const ListNone = styled.ul`
     list-style: none;
@@ -38,12 +38,9 @@ const Orders = () => {
     useEffect(() => {
         async function data() {
             const today = formatISO(date, { representation: 'date' });
-            const response = await authFetch(`orders?today=${today}`, {
-                method: 'get'
-            });
-            const jsonResponse = await response.json();
+            const orders = await client(`orders?today=${today}`);
 
-            setOrders(jsonResponse);
+            setOrders(orders);
         }
 
         data();

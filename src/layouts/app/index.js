@@ -1,22 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, Container, Nav, Navbar } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Link, Route, Switch, useHistory, useRouteMatch
 } from "react-router-dom";
+import styled from 'styled-components';
+import { fetchMe } from '../../modules/user/actions';
 import Dashboard from '../../routes/dashboard';
 import DailyMenu from '../../routes/menu';
 import Orders from '../../routes/orders';
 import { removeToken } from '../../utils/auth';
 import "./app.css";
 
+const Circle = styled.span`
+  display: inline-block;
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  width: 30px;
+  line-height: 10px;
+  height: 30px;
+  border-radius: 50%;
+  text-transform: uppercase;
+  margin-right: 10px;
+`;
+
 function App() {
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { username } = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(fetchMe());
+  }, [dispatch]);
 
   const logout = () => {
-    removeToken(null);
+    removeToken();
     history.push("/login");
   };
 
@@ -51,12 +73,15 @@ function App() {
                   </div>
                 </Collapse>
               </Nav.Item>
-              <Nav.Link href="#" onClick={logout} className="d-lg-none">Wyloguj</Nav.Link>
+              <Nav.Link href="#" onClick={logout} className="d-lg-none">Wyloguj ({username})</Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Nav className="d-none d-lg-block">
-            <Nav.Link href="#" onClick={logout}>Wyloguj</Nav.Link>
+            <Nav.Link href="#" onClick={logout}>
+              <Circle>{username && username[0]}</Circle>
+              Wyloguj ({username})
+            </Nav.Link>
           </Nav>
         </Navbar>
         <div className="main-container">
