@@ -1,3 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Eatally](https://eatally.pl)'s restaurant panel react implementation
 
-Demo at https://distracted-nobel-b8a29b.netlify.app/
+Demo at https://panel.eatally.pl/
