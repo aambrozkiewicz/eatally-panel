@@ -22,7 +22,7 @@ const Dashboard = () => {
             <h4 className="display-4">Dzisiaj do przygotowania</h4>
             {loading && <Spinner animation="border" variant="primary" className="mb-3" />}
             {!loading && meals.length === 0 && <div className="ml-1">Brak dań na dzisiaj</div>}
-            {meals &&
+            {meals.length > 0 &&
                 <div className="border rounded px-3 py-1 shadow">
                     {meals.map(({ name, qty }, i) => (
                         <div className="d-flex my-2">
