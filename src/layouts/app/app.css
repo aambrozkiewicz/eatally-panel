@@ -10,6 +10,11 @@
     transform: rotate(180deg);
 }
 
+.bg-dark hr {
+    width: 100%;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 @media (min-width: 992px) {
     .wrapper {
         display: flex;

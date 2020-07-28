@@ -51,7 +51,6 @@ const Orders = () => {
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <div>
                     <h1 style={{ margin: 0 }}>Zamówienia</h1>
-                    Na sumę <strong>{total}</strong> zł
                 </div>
                 <div className="text-right">
                     <DatePicker
@@ -61,7 +60,10 @@ const Orders = () => {
                     />
                 </div>
             </div>
+            <p>Na sumę <strong>{total}</strong> zł</p>
+            
             {!orders.length && 'Brak zamówień'}
+            
             {orders.map(order => (
                 <HooverBox key={order.id} className="border rounded d-flex flex-wrap flex-lg-nowrap mb-2">
                     <Details style={{ whiteSpace: "nowrap", backgroundColor: '#fafafa' }}

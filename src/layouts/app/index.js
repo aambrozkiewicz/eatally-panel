@@ -8,7 +8,8 @@ import {
 import styled from 'styled-components';
 import { fetchMe } from '../../modules/user/actions';
 import Dashboard from '../../routes/dashboard';
-import DailyMenu from '../../routes/menu';
+import DailyMenu from '../../routes/menu/daily';
+import FixedMenu from '../../routes/menu/fixed';
 import Orders from '../../routes/orders';
 import { removeToken } from '../../utils/auth';
 import "./app.css";
@@ -31,7 +32,7 @@ function App() {
   const { path, url } = useRouteMatch();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { username } = useSelector(state => state.user);
+  const { username, catering: { name: cateringName } = {}} = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(fetchMe());
@@ -46,7 +47,7 @@ function App() {
     <Router>
       <div className="wrapper">
         <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
-          <Navbar.Brand as={Link} to={url} className="ml-lg-2">eatally</Navbar.Brand>
+          <Navbar.Brand as={Link} to={url} className="ml-lg-2 mb-lg-5">eatally</Navbar.Brand>
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
           <Navbar.Collapse id="sidebar-navbar-nav" className="align-items-start w-100">
             <Nav className="sidebar-nav w-100">
@@ -56,23 +57,27 @@ function App() {
               <Nav.Link as={Link} to={`${url}/orders`}>
                 Zamówienia
               </Nav.Link>
-              <Nav.Link as={Link} to={`${url}/menu`}>
-                Menu
-              </Nav.Link>
               <Nav.Item>
                 <Nav.Link onClick={() => setOpen(!open)}
                   data-toggle="collapse"
                   aria-controls="more-menu"
                   aria-expanded={open}
                   className="dropdown-toggle">
-                  Więcej
+                  Menu
                 </Nav.Link>
                 <Collapse in={open}>
                   <div id="more-menu">
-                    <Nav.Link>Hello</Nav.Link>
+                    <Nav className="flex-column">
+                      <Nav.Link as={Link} to={`${url}/daily-menu`}>Codzienne</Nav.Link>
+                      <Nav.Link as={Link} to={`${url}/fixed-menu`}>Stałe</Nav.Link>
+                    </Nav>
                   </div>
                 </Collapse>
               </Nav.Item>
+              <hr />
+              <div className="text-small text-muted ml-lg-2">
+                {cateringName}
+              </div>
               <Nav.Link href="#" onClick={logout} className="d-lg-none">Wyloguj ({username})</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -90,8 +95,11 @@ function App() {
               <Route path={`${path}/orders`}>
                 <Orders />
               </Route>
-              <Route path={`${path}/menu`}>
+              <Route path={`${path}/daily-menu`}>
                 <DailyMenu />
+              </Route>
+              <Route path={`${path}/fixed-menu`}>
+                <FixedMenu />
               </Route>
               <Route path={`${path}`}>
                 <Dashboard />

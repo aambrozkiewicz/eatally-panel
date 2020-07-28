@@ -43,7 +43,7 @@ const Login = () => {
     }
 
     return (
-        <div className="d-flex align-items-center" style={{ height: '100vh', backgroundColor: '#fafafa' }}>
+        <div className="d-flex align-items-center" style={{ height: '100vh', backgroundColor: '#f8f9fa' }}>
             <Container>
                 <Row className="justify-content-center">
                     <Col md="7">
