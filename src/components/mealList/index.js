@@ -8,7 +8,6 @@ const MealItem = ({ meal, categories, ...props }) => {
 
     return (
         <Meal
-            key={meal.id}
             className="border p-3 my-2 rounded d-flex justify-content-between"
             onMouseEnter={() => setActive(true)}
             onMouseLeave={() => setActive(false)}>
@@ -36,7 +35,7 @@ const MealList = (props) => {
     return (
         <Meals>
             {meals.map(meal => (
-                <MealItem meal={meal} categories={categories} {...props} />
+                <MealItem key={meal.id} meal={meal} categories={categories} {...props} />
             ))}
             {!meals.length && <div>Nic tu jeszcze nie ma ;(</div>}
         </Meals>

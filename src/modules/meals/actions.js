@@ -5,7 +5,11 @@ import { client } from '../../utils/api';
 export const fetchMeals = createAsyncThunk(
     'meals/fetchAll',
     async (date, thunkAPI) => {
-        const dateQuery = formatISO(date, { representation: 'date' });
+        let dateQuery = '';
+        if (date) {
+            dateQuery = formatISO(date, { representation: 'date' });
+        }
+        
         return client(`meals?date=${dateQuery}`);
     }
 );

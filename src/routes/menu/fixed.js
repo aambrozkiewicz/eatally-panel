@@ -14,11 +14,8 @@ function Menu() {
   );
 
   useEffect(() => {
-    dispatch(fetchMeals());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(fetchCategories());
+    dispatch(fetchMeals());
   }, [dispatch]);
 
   function destroy(meal) {

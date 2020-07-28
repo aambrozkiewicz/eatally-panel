@@ -65,8 +65,8 @@ const Orders = () => {
             {!orders.length && 'Brak zamówień'}
             
             {orders.map(order => (
-                <HooverBox key={order.id} className="border rounded d-flex flex-wrap flex-lg-nowrap mb-2">
-                    <Details style={{ whiteSpace: "nowrap", backgroundColor: '#fafafa' }}
+                <HooverBox key={order.id} className="border d-flex flex-wrap flex-lg-nowrap mb-2">
+                    <Details style={{ whiteSpace: "pre-wrap", backgroundColor: '#fafafa' }}
                         className="p-2">
                         <ListNone>
                             <li>{order.name}</li>
