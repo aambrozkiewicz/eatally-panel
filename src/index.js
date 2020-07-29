@@ -1,15 +1,14 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import pl from 'date-fns/locale/pl';
 import React from 'react';
+import { registerLocale, setDefaultLocale } from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import './index.css';
 import App from './App';
+import './index.css';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import { registerLocale, setDefaultLocale } from 'react-datepicker';
-import pl from 'date-fns/locale/pl';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "react-datepicker/dist/react-datepicker.css";
 
 registerLocale('pl', pl);
 setDefaultLocale('pl');
