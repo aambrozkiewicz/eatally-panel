@@ -6,6 +6,7 @@ export const client = async (endpoint, { body, ...config } = {}) => {
     const token = getToken();
     const headers = {
         'Content-Type': 'application/json',
+        ...config.headers,
     };
 
     if (token) {
@@ -17,12 +18,12 @@ export const client = async (endpoint, { body, ...config } = {}) => {
     }
 
     const response = await fetch(`${process.env['REACT_APP_API_URL']}/${endpoint}`, {
-        method: config.body || 'GET',
-        headers: { ...headers, ...config.headers },
+        method: config.method || 'GET',
+        headers,
         ...config,
     });
 
-    if (response.status === 401) { 
+    if (response.status === 401) {
         removeToken();
         window.location.assign(window.location);
         return;

@@ -1,34 +1,28 @@
 import { format, formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Badge, Button } from 'react-bootstrap';
+import { Link45deg } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
-import styled from 'styled-components';
 import { client } from '../../utils/api';
+import { HooverBox, Lines, Paper } from './styles';
 
-const ListNone = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding: 0;
-`;
+const Payment = ({ type, payments }) => {
+    if (type === 'cash') {
+        return 'Gotówka';
+    } else if (type === 'wire_transfer') {
+        const lastPayment = payments[payments.length - 1];
+        const status = lastPayment.status;
+        const statuses = {
+            'new': 'Rozpoczęta',
+            'error': 'Błędna',
+            'finished': 'Zakończona',
+        };
 
-const HooverBox = styled.div`
-    transition: all .3s ease-in-out;
-
-    &:hover {
-        box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
-        transform: translate3d(0px, -1px, 0px);
+        return <span>Przelew <Badge variant={status === "finished" ? "success" : "secondary"}>{statuses[status]}</Badge></span>;
+    } else if (type === 'card_on_site') {
+        return 'Karta';
     }
-`;
-
-const Details = styled.div`
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    @media (min-width: 768px) {
-        width: 200px;
-        border-bottom: 0;
-        border-right: 1px solid #ccc;
-    }
-`;
+};
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -61,40 +55,46 @@ const Orders = () => {
                 </div>
             </div>
             <p>Na sumę <strong>{total}</strong> zł</p>
-            
+
             {!orders.length && 'Brak zamówień'}
-            
+
             {orders.map(order => (
-                <HooverBox key={order.id} className="border d-flex flex-wrap flex-lg-nowrap mb-2">
-                    <Details style={{ whiteSpace: "pre-wrap", backgroundColor: '#fafafa' }}
-                        className="p-2">
-                        <ListNone>
-                            <li>{order.name}</li>
-                            <li>{order.address}</li>
-                            <li>{order.phone}</li>
-                            <li>{order.comment}</li>
-                        </ListNone>
-                    </Details>
-                    <div className="flex-grow-1 p-2">
-                        <ListNone>
-                            {order.meals.map((meal, i) => (
-                                <li key={i}>
-                                    <div className="d-flex justify-content-between">
-                                        <div>
-                                            {meal.qty} x {meal.name}
-                                        </div>
-                                        <div style={{ whiteSpace: 'nowrap' }}>{meal.price} zł</div>
-                                    </div>
-                                </li>
-                            ))}
-                            <li>
-                                <div className="d-flex justify-content-between font-weight-bold">
-                                    <div>Razem</div>
-                                    <div>{order.total} zł</div>
-                                </div>
-                            </li>
-                        </ListNone>
+                <HooverBox className="my-3 border rounded" key={order.id}>
+                    <div className="d-flex justify-content-between p-2 border-bottom">
+                        <div>{order.name} tel. {order.phone}</div>
+                        <div>
+                            <Payment type={order.payment_type} payments={order.payments} />
+                        </div>
                     </div>
+
+                    <Paper>
+                        <Lines>
+                            {order.meals.map((meal, i) => (
+                                <div key={i} className="d-flex justify-content-between">
+                                    <div>{meal.qty} x {meal.name}</div>
+                                    <div style={{ whiteSpace: "nowrap" }}>{meal.price} zł</div>
+                                </div>
+                            ))}
+                            <div className="d-flex justify-content-between font-weight-bold">
+                                <div>Razem</div>
+                                <div>{order.total} zł</div>
+                            </div>
+                        </Lines>
+                    </Paper>
+                    <div className="p-2 border-top d-flex justify-content-between align-items-center">
+                        <div>
+                            {order.address}
+                        </div>
+                        <Button
+                            size="sm"
+                            variant="outline-primary"
+                            href={`https://www.google.com/maps/search/?api=1&query=${order.address}`} target="_blank">
+                            <Link45deg /> Google Maps
+                        </Button>
+                    </div>
+                    {order.comment && <div className="p-2 border-top">
+                        {order.comment}
+                    </div>}
                 </HooverBox>
             ))}
         </>
