@@ -6,6 +6,7 @@ export const client = async (endpoint, { body, ...config } = {}) => {
     const token = getToken();
     const headers = {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         ...config.headers,
     };
 

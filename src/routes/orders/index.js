@@ -1,6 +1,6 @@
 import { format, formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Badge, Button } from 'react-bootstrap';
+import { Badge, Button, Col, Row } from 'react-bootstrap';
 import { Link45deg } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import { client } from '../../utils/api';
@@ -41,64 +41,70 @@ const Orders = () => {
     }, [date]);
 
     return (
-        <>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h1 style={{ margin: 0 }}>Zamówienia</h1>
-                </div>
-                <div className="text-right">
-                    <DatePicker
-                        customInput={<Button size="sm" variant="outline-secondary">{format(date, 'iiii, d MMM')}</Button>}
-                        popperPlacement="bottom-end"
-                        onChange={setDate}
-                    />
-                </div>
-            </div>
-            <p>Na sumę <strong>{total}</strong> zł</p>
-
-            {!orders.length && 'Brak zamówień'}
-
-            {orders.map(order => (
-                <HooverBox className="my-3 border rounded" key={order.id}>
-                    <div className="d-flex justify-content-between p-2 border-bottom">
-                        <div>{order.name} tel. {order.phone}</div>
-                        <div>
-                            <Payment type={order.payment_type} payments={order.payments} />
-                        </div>
+        <Row className="justify-content-center">
+            <Col lg="7">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h1 style={{ margin: 0 }}>Zamówienia</h1>
                     </div>
+                    <div className="text-right">
+                        <DatePicker
+                            customInput={<Button size="sm" variant="outline-secondary">{format(date, 'iiii, d MMM')}</Button>}
+                            popperPlacement="bottom-end"
+                            onChange={setDate}
+                        />
+                    </div>
+                </div>
+                <p>Na sumę <strong>{total}</strong> zł</p>
 
-                    <Paper>
-                        <Lines>
-                            {order.meals.map((meal, i) => (
-                                <div key={i} className="d-flex justify-content-between">
-                                    <div>{meal.qty} x {meal.name}</div>
-                                    <div style={{ whiteSpace: "nowrap" }}>{meal.price} zł</div>
-                                </div>
-                            ))}
-                            <div className="d-flex justify-content-between font-weight-bold">
-                                <div>Razem</div>
-                                <div>{order.total} zł</div>
+                {!orders.length && 'Brak zamówień'}
+
+                {orders.map(order => (
+                    <HooverBox className="my-3 border rounded" key={order.id}>
+                        <div className="d-flex justify-content-between p-2 border-bottom">
+                            <div>{order.name} tel. {order.phone}</div>
+                            <div>
+                                <Payment type={order.payment_type} payments={order.payments} />
                             </div>
-                        </Lines>
-                    </Paper>
-                    
-                    <div className="p-2 border-top d-flex justify-content-between align-items-center">
-                        <div>
-                            {order.address}
                         </div>
-                        <Button
-                            size="sm"
-                            variant="outline-primary"
-                            href={`https://www.google.com/maps/search/?api=1&query=${order.address}`} target="_blank">
-                            <Link45deg /> Mapa
-                        </Button>
-                    </div>
-                    {order.comment && <div className="p-2 border-top">
-                        {order.comment}
-                    </div>}
-                </HooverBox>
-            ))}
-        </>
+
+                        <Paper>
+                            <Lines>
+                                {order.meals.map((meal, i) => (
+                                    <div key={i} className="d-flex justify-content-between">
+                                        <div>{meal.qty} x {meal.name}</div>
+                                        <div style={{ whiteSpace: "nowrap" }}>{meal.price} zł</div>
+                                    </div>
+                                ))}
+                                <div className="d-flex justify-content-between font-weight-bold">
+                                    <div>Razem</div>
+                                    <div>{order.total} zł</div>
+                                </div>
+                            </Lines>
+                        </Paper>
+
+                        <div className="p-2 border-top d-flex justify-content-between align-items-center">
+                            {!order.pickup_location_id && <>
+                                <div>
+                                    {order.address}
+                                </div>
+                                <Button
+                                    size="sm"
+                                    variant="outline-primary"
+                                    href={`https://www.google.com/maps/search/?api=1&query=${order.address}`} target="_blank">
+                                    <Link45deg /> Mapa
+                                </Button></>}
+                            {order.pickup_location_id && <div className="bg-warning px-2">
+                                Odbiór {order.pickup_location_name} o {order.pick_up_at}
+                                </div>}
+                        </div>
+                        {order.comment && <div className="p-2 border-top">
+                            {order.comment}
+                        </div>}
+                    </HooverBox>
+                ))}
+            </Col>
+        </Row>
     );
 };
 

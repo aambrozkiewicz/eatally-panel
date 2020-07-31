@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 import { fetchMe } from '../../modules/user/actions';
+import Alerts from '../../routes/alerts';
 import Dashboard from '../../routes/dashboard';
 import DailyMenu from '../../routes/menu/daily';
 import FixedMenu from '../../routes/menu/fixed';
@@ -32,7 +33,7 @@ function App() {
   const { path, url } = useRouteMatch();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { username, catering: { name: cateringName } = {}} = useSelector(state => state.user);
+  const { username, catering: { name: cateringName } = {} } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(fetchMe());
@@ -74,6 +75,9 @@ function App() {
                   </div>
                 </Collapse>
               </Nav.Item>
+              <Nav.Link as={Link} to={`${url}/alerts`}>
+                Komunikaty
+              </Nav.Link>
               <hr />
               <div className="text-small text-muted ml-lg-2">
                 {cateringName}
@@ -90,7 +94,7 @@ function App() {
           </Nav>
         </Navbar>
         <div className="main-container">
-          <Container className="pt-2">
+          <Container className="py-3">
             <Switch>
               <Route path={`${path}/orders`}>
                 <Orders />
@@ -100,6 +104,9 @@ function App() {
               </Route>
               <Route path={`${path}/fixed-menu`}>
                 <FixedMenu />
+              </Route>
+              <Route path={`${path}/alerts`}>
+                <Alerts />
               </Route>
               <Route path={`${path}`}>
                 <Dashboard />
