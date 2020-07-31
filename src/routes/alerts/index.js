@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap';
-import ConfirmedButton from '../../components/confirmedButton';
+import ConfirmButton from '../../components/confirmButton';
 import { client } from '../../utils/api';
 
 function Alerts() {
@@ -63,10 +63,10 @@ function Alerts() {
                                     <Button size="sm" variant="outline-dark" onClick={() => edit(alert)}>
                                         Edycja
                                     </Button>
-                                    <ConfirmedButton 
+                                    <ConfirmButton 
                                         onClick={() => destroy(alert.id)}
                                         size="sm" 
-                                        variant="danger">Usuń</ConfirmedButton>
+                                        variant="danger">Usuń</ConfirmButton>
                                 </ButtonGroup>
                             </ListGroup.Item>
                         ))}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 
-function ConfirmedButton(props) {
+function ConfirmButton(props) {
     const {children, onClick, timeout, ...other} = {timeout: 2, ...props};
     const [clicked, setClicked] = useState(false);
     const [counter, setCounter] = useState(timeout);
@@ -21,7 +21,7 @@ function ConfirmedButton(props) {
             setClicked(false);
             setCounter(timeout);
         }
-    }, [counter]);
+    }, [counter, timeout]);
 
     function click() {
         if (clicked) {
@@ -36,4 +36,4 @@ function ConfirmedButton(props) {
     return <Button {...other} onClick={click}>{clicked ? `Na pewno? (${counter})` : children}</Button>;
 }
 
-export default ConfirmedButton;
+export default ConfirmButton;
