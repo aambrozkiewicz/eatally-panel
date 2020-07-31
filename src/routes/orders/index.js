@@ -90,7 +90,7 @@ const Orders = () => {
                             size="sm"
                             variant="outline-primary"
                             href={`https://www.google.com/maps/search/?api=1&query=${order.address}`} target="_blank">
-                            <Link45deg /> Google Maps
+                            <Link45deg /> Mapa
                         </Button>
                     </div>
                     {order.comment && <div className="p-2 border-top">
