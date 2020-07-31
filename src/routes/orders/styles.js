@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const HooverBox = styled.div`
+    background-color: #fff;
     transition: all .3s ease-in-out;
     font-size: 0.9rem;
 

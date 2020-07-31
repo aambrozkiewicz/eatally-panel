@@ -6,6 +6,7 @@ export const Meals = styled.ul`
 `;
 
 export const Meal = styled.li`
+    background-color: #fff;
     transition: all .3s ease-in-out;
 
     &:hover {
