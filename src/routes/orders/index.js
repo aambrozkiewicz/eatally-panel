@@ -45,7 +45,7 @@ const Orders = () => {
             <Col lg="7">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <div>
-                        <h1 style={{ margin: 0 }}>Zamówienia</h1>
+                        <h2 style={{ margin: 0 }}>Zamówienia</h2>
                     </div>
                     <div className="text-right">
                         <DatePicker
