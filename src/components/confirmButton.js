@@ -7,11 +7,11 @@ function ConfirmButton(props) {
     const [counter, setCounter] = useState(timeout);
 
     useEffect(() => {
-        let interval;
         if (clicked) {
-            interval = setInterval(() => {
+            const interval = setInterval(() => {
                 setCounter(counter => counter - 1);
             }, 1000);
+
             return () => clearInterval(interval);
         }
     }, [clicked]);

@@ -55,8 +55,8 @@ function Alerts() {
                     <hr />
                     <ListGroup>
                         {alerts.map(alert => (
-                            <ListGroup.Item key={alert.id} className="d-flex justify-content-between align-items-center">
-                                <div>
+                            <ListGroup.Item key={alert.id} className="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
+                                <div className="mb-2 mb-lg-0">
                                     {alert.body}
                                 </div>
                                 <ButtonGroup>
