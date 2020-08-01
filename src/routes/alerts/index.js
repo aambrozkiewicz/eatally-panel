@@ -78,7 +78,7 @@ function Alerts() {
                     <Form onSubmit={submit}>
                         <Form.Group>
                             <Form.Label>Treść komunikatu</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
+                            <Form.Control as="textarea" rows="6" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
                         </Form.Group>
                         <Button variant="primary" type="submit" className="float-right">
                             Zapisz
