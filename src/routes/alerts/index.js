@@ -74,19 +74,17 @@ function Alerts() {
                     </ListGroup>
                 </Col>
             </Row>
-            <Sidebar open={show}>
-                <div className="p-4 h-100 bg-white border-left">
-                    <Form onSubmit={submit}>
-                        <Form.Group>
-                            <Form.Label>Treść komunikatu</Form.Label>
-                            <Form.Control tabIndex="1" as="textarea" rows="6" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
-                        </Form.Group>
-                        <Button variant="outline-primary" onClick={close}>Zamknij</Button>
-                        <Button tabIndex="2" variant="primary" type="submit" className="float-right">
-                            Zapisz
+            <Sidebar open={show} className="p-3 h-100 bg-white border-left">
+                <Form onSubmit={submit}>
+                    <Form.Group>
+                        <Form.Label>Treść komunikatu</Form.Label>
+                        <Form.Control tabIndex="1" as="textarea" rows="6" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
+                    </Form.Group>
+                    <Button variant="outline-primary" onClick={close}>Zamknij</Button>
+                    <Button tabIndex="2" variant="primary" type="submit" className="float-right">
+                        Zapisz
                         </Button>
-                    </Form>
-                </div>
+                </Form>
             </Sidebar>
         </>
     );

@@ -46,24 +46,22 @@ function Menu() {
           <MealList meals={meals} onEdit={meal => { edit(meal) }} onDelete={destroy} />
         </Col>
       </Row>
-      <Sidebar open={showSidebar}>
-        <div className="p-4 h-100 bg-white border-left">
-          <Button 
-            style={{position: 'absolute', right: '1.5rem'}} size="sm"
-            onClick={close}
-            >Zamknij</Button>
-          {editing ?
-            <>
-              <h3>Edycja</h3>
-              <MealForm className="pt-2" meal={editing} onSuccess={close}></MealForm>
-            </>
-            :
-            <div>
-              <h3>Nowa pozycja</h3>
-              <MealForm className="pt-2" onSuccess={close}></MealForm>
-            </div>
-          }
-        </div>
+      <Sidebar open={showSidebar} className="p-3 h-100 bg-white border-left">
+        <Button
+          style={{ position: 'absolute', right: '1.5rem' }} size="sm"
+          onClick={close}
+        >Zamknij</Button>
+        {editing ?
+          <>
+            <h3>Edycja</h3>
+            <MealForm className="pt-2" meal={editing} onSuccess={close}></MealForm>
+          </>
+          :
+          <div>
+            <h3>Nowa pozycja</h3>
+            <MealForm className="pt-2" onSuccess={close}></MealForm>
+          </div>
+        }
       </Sidebar>
     </>
   );
