@@ -1,7 +1,7 @@
 .main-container {
     position: relative;
     overflow-x: hidden;
-    height: 100vh;
+    height: 100%;
 }
 
 .nav-link[data-toggle] {
