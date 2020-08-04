@@ -1,5 +1,6 @@
 .main-container {
     position: relative;
+    height: 100vh;
 }
 
 .nav-link[data-toggle] {
