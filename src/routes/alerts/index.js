@@ -1,24 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Col, Form, ListGroup, Row } from 'react-bootstrap';
-import styled from 'styled-components';
 import ConfirmButton from '../../components/confirmButton';
+import Sidebar from '../../components/sidebar';
 import { client } from '../../utils/api';
-
-const EditSidebar = styled.div`
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 88vw;
-    z-index: 1;
-    transition: transform .5s ease;
-    transform: ${props => props.open ? `translateX(0)` : `translateX(400px)`};
-
-    @media (min-width: 992px) {
-        width: 400px;
-        transform: ${props => props.open ? `translateX(0)` : `translateX(400px)`};
-    }
-`;
 
 function Alerts() {
     const [alerts, setAlerts] = useState([]);
@@ -52,7 +36,7 @@ function Alerts() {
     }
 
     function close() {
-        setAlert({id: '', body: ''});
+        setAlert({ id: '', body: '' });
         setShow(false);
     }
 
@@ -90,7 +74,7 @@ function Alerts() {
                     </ListGroup>
                 </Col>
             </Row>
-            <EditSidebar open={show}>
+            <Sidebar open={show}>
                 <div className="p-4 h-100 bg-white border-left">
                     <Form onSubmit={submit}>
                         <Form.Group>
@@ -103,7 +87,7 @@ function Alerts() {
                         </Button>
                     </Form>
                 </div>
-            </EditSidebar>
+            </Sidebar>
         </>
     );
 }
