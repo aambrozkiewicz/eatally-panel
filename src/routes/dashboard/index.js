@@ -22,16 +22,16 @@ const Dashboard = () => {
     const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(false);
     const { url } = useRouteMatch();
+    
+    async function fetchSummary() {
+        setLoading(true);
+        const response = await client('meal/summary');
+        setLoading(false);
+        setMeals(response);
+    }
 
     useEffect(() => {
-        async function data() {
-            setLoading(true);
-            const response = await client('meal/summary');
-            setLoading(false);
-            setMeals(response);
-        }
-
-        data();
+        fetchSummary();
     }, []);
 
     return (

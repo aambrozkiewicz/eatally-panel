@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Col, Form, ListGroup, Modal, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Form, ListGroup, Row } from 'react-bootstrap';
+import styled from 'styled-components';
 import ConfirmButton from '../../components/confirmButton';
 import { client } from '../../utils/api';
+
+const EditSidebar = styled.div`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 88vw;
+    z-index: 1;
+    transition: transform .5s ease;
+    transform: ${props => props.open ? `translateX(0)` : `translateX(400px)`};
+
+    @media (min-width: 992px) {
+        width: 400px;
+        transform: ${props => props.open ? `translateX(0)` : `translateX(400px)`};
+    }
+`;
 
 function Alerts() {
     const [alerts, setAlerts] = useState([]);
@@ -26,7 +43,7 @@ function Alerts() {
     }
 
     async function destroy(mealId) {
-        await client(`alert/${mealId}`, {method: 'DELETE'});
+        await client(`alert/${mealId}`, { method: 'DELETE' });
         fetchAlerts();
     }
 
@@ -35,7 +52,7 @@ function Alerts() {
     }
 
     function close() {
-        setAlert({});
+        setAlert({id: '', body: ''});
         setShow(false);
     }
 
@@ -63,9 +80,9 @@ function Alerts() {
                                     <Button size="sm" variant="outline-dark" onClick={() => edit(alert)}>
                                         Edycja
                                     </Button>
-                                    <ConfirmButton 
+                                    <ConfirmButton
                                         onClick={() => destroy(alert.id)}
-                                        size="sm" 
+                                        size="sm"
                                         variant="danger">Usuń</ConfirmButton>
                                 </ButtonGroup>
                             </ListGroup.Item>
@@ -73,19 +90,20 @@ function Alerts() {
                     </ListGroup>
                 </Col>
             </Row>
-            <Modal show={show} onHide={close}>
-                <Modal.Body>
+            <EditSidebar open={show}>
+                <div className="p-4 h-100 bg-white border-left">
                     <Form onSubmit={submit}>
                         <Form.Group>
                             <Form.Label>Treść komunikatu</Form.Label>
-                            <Form.Control as="textarea" rows="6" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
+                            <Form.Control tabIndex="1" as="textarea" rows="6" onChange={(e) => inputChange('body', e.currentTarget.value)} value={alert.body} />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="float-right">
+                        <Button variant="outline-primary" onClick={close}>Zamknij</Button>
+                        <Button tabIndex="2" variant="primary" type="submit" className="float-right">
                             Zapisz
                         </Button>
                     </Form>
-                </Modal.Body>
-            </Modal>
+                </div>
+            </EditSidebar>
         </>
     );
 }
