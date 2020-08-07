@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { DoorOpen } from 'react-bootstrap-icons';
+import { useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
 import { apiUrl } from '../../utils/api';
 import { setToken } from '../../utils/auth';
@@ -8,13 +9,9 @@ import { setToken } from '../../utils/auth';
 const Login = () => {
     const history = useHistory();
     const location = useLocation();
-    const [error, setError] = useState();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { register, handleSubmit, setValue, errors, setError } = useForm();
 
-    const login = async (e) => {
-        e.preventDefault();
-
+    const login = async ({ email, password }) => {
         try {
             const response = await fetch(
                 `${apiUrl}/auth/login`,
@@ -26,7 +23,10 @@ const Login = () => {
             );
 
             if (response.status === 401) {
-                setError('Błędny login lub hasło');
+                setError('email', {
+                    type: 'manual',
+                    message: 'Błędny login lub hasło',
+                });
             } else {
                 const jsonResponse = await response.json();
                 setToken(jsonResponse.access_token);
@@ -38,8 +38,9 @@ const Login = () => {
     }
 
     function demo() {
-        setEmail(process.env['REACT_APP_DEMO_EMAIL']);
-        setPassword(process.env['REACT_APP_DEMO_PASSWORD']);
+        setValue('email', process.env['REACT_APP_DEMO_EMAIL']);
+        setValue('password', process.env['REACT_APP_DEMO_PASSWORD']);
+        handleSubmit(login)();
     }
 
     return (
@@ -49,15 +50,28 @@ const Login = () => {
                     <Col md="7">
                         <h1>eatally</h1>
                         <p className="lead">Zaloguj się aby kontynuować</p>
-                        <Form onSubmit={login} noValidate>
+                        <Form onSubmit={handleSubmit(login)} noValidate>
                             <Form.Group>
-                                <Form.Control type="email" placeholder="Twój adres e-mail" isInvalid={error} value={email} onChange={e => setEmail(e.currentTarget.value)} />
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Twój adres e-mail"
+                                    ref={register({ required: "To pole jest wymagane" })}
+                                    name="email"
+                                    isInvalid={errors.email} />
                                 <Form.Control.Feedback type="invalid">
-                                    {error}
+                                    {errors.email && errors.email.message}
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control type="password" placeholder="Twój sekret" value={password} onChange={e => setPassword(e.currentTarget.value)} />
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Twój sekret"
+                                    name="password"
+                                    ref={register({ required: "Bez hasła nie da rady" })}
+                                    isInvalid={errors.password} />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.password && errors.password.message}
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Button variant="outline-dark" onClick={demo}>
                                 <DoorOpen size="20" /> Demo

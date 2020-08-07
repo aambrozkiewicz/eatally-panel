@@ -1,66 +1,28 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
 import { formatISO } from 'date-fns';
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Spinner } from "react-bootstrap";
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMeal } from '../../modules/meals/actions';
 import { client } from '../../utils/api';
 
-const setField = createAction('setField');
-const setLoading = createAction('setLoading');
-const clear = createAction('clear');
-const loadMeal = createAction('loadMeal');
-
-const initialState = {
-    id: null,
-    name: '',
-    category_id: '',
-    price: '',
-    loading: false,
-};
-
-const reducer = createReducer(initialState, {
-    [setField]: (state, action) => {
-        state[action.payload.key] = action.payload.value;
-    },
-    [clear]: (state, action) => {
-        state.id = null;
-        state.name = '';
-        state.category_id = '';
-        state.price = '';
-        state.loading = false;
-    },
-    [loadMeal]: (state, action) => {
-        return {
-            ...state,
-            ...action.payload
-        };
-    },
-    [setLoading]: state => { state.loading = true },
-});
-
 const MealForm = ({ className, ...props }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const { id, name, category_id, price, loading } = state;
-    const globalDispatch = useDispatch();
+    const { onSuccess } = props;
+    const [loading, setLoading] = useState(false);
+    const { register, handleSubmit, errors, reset } = useForm();
+    const dispatch = useDispatch();
     const categories = useSelector(state => state.categories);
 
     useEffect(() => {
-        if (props.meal) {
-            dispatch(loadMeal(props.meal));
-        } else {
-            dispatch(clear());
-        }
-    }, [props.meal]);
+        reset(props.meal);
+    }, [reset, props.meal]);
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-
-        dispatch(setLoading());
+    const onSubmit = async ({ name, category_id, price }) => {
+        setLoading(true);
 
         let response;
-        if (id !== null) {
-            response = await client(`meal/${id}`, {
+        if (props.meal && props.meal.id) {
+            response = await client(`meal/${props.meal.id}`, {
                 method: 'PATCH',
                 body: { name, category_id, price },
             });
@@ -70,35 +32,38 @@ const MealForm = ({ className, ...props }) => {
                 body: {
                     name,
                     price,
-                    category_id,
+                    category_id: category_id || null,
                     date: props.date ? formatISO(props.date, { representation: 'date' }) : null,
                 },
             });
         }
 
-        globalDispatch(setMeal(response));
-        dispatch(clear());
-        props.onSuccess && props.onSuccess();
+        dispatch(setMeal(response));
+        setLoading(false);
+        onSuccess && onSuccess();
     }
 
     return (
-        <Form onSubmit={onSubmit} {...{ className }}>
+        <Form onSubmit={handleSubmit(onSubmit)} {...{ className }}>
             <FormGroup>
                 <Form.Label>Nazwa</Form.Label>
                 <Form.Control
                     type="text"
-                    value={name}
-                    onChange={e => dispatch(setField({ key: 'name', value: e.currentTarget.value }))}
-                    placeholder="Pierś z kurczaka w sosie własnym 👨‍🍳" />
+                    placeholder="Pierś z kurczaka w sosie własnym 👨‍🍳"
+                    name="name"
+                    ref={register({ required: true })}
+                    isInvalid={errors.name} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.name && "Pole wymagane"}
+                </Form.Control.Feedback>
             </FormGroup>
             <Form.Group controlId="exampleForm.ControlSelect2">
                 <Form.Label>Kategoria</Form.Label>
                 <Form.Control
                     as="select"
-                    value={category_id}
-                    onChange={e => dispatch(setField({ key: 'category_id', value: e.target.value }))}
-                >
-                    <option>Bez kategorii</option>
+                    name="category_id"
+                    ref={register()}>
+                    <option value="">Bez kategorii</option>
                     {Object.values(categories).map((category, i) => (
                         <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
@@ -109,9 +74,13 @@ const MealForm = ({ className, ...props }) => {
                 <Form.Control
                     type="number"
                     step="0.01"
-                    value={price}
-                    onChange={e => dispatch(setField({ key: 'price', value: e.currentTarget.value }))}
+                    name="price"
+                    ref={register({ required: "Cena jest wymagana" })}
+                    isInvalid={errors.price}
                     placeholder="np. 10,99 PLN" />
+                <Form.Control.Feedback type="invalid">
+                    {errors.price && errors.price.message}
+                </Form.Control.Feedback>
             </Form.Group>
             <Button type="submit" variant="outline-primary" disabled={loading}>
                 Zapisz

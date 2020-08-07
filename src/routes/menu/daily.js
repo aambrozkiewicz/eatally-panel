@@ -73,7 +73,7 @@ function Menu() {
                     :
                     <div>
                         <h3>Nowa pozycja</h3>
-                        <MealForm date={date} className="pt-2" onSuccess={close}></MealForm>
+                        <MealForm className="pt-2" date={date} onSuccess={close}></MealForm>
                     </div>
                 }
             </Sidebar>

@@ -14,21 +14,24 @@ export const HooverBox = styled.div`
 export const Paper = styled.div`
     position: relative;
 
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0; bottom: 0; left: 0;
-        width: 55px;
-        background: radial-gradient(#575450 6px, transparent 7px) repeat-y;
-        background-size: 30px 30px;
-        background-position-x: 5px;
-        border-right: 2px solid rgba(255, 0, 0, 0.4);
+    @media (min-width: 992px) {
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 0;
+            width: 55px;
+            border-right: 2px solid rgba(255, 0, 0, 0.4);
+        }
     }
 `;
 
 export const Lines = styled.div`
     background-image: repeating-linear-gradient(#fffee0 0px, #fffee0 24px, steelblue 25px);
     min-height: 74px;
-    padding: 0 10px 17px 77px;
+    padding: 0 10px 17px 10px;
     line-height: 25px;
+
+    @media (min-width: 992px) {
+        padding-left: 77px;
+    }
 `;

@@ -1,7 +1,7 @@
 import { format, formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Col, Row } from 'react-bootstrap';
-import { Link45deg } from 'react-bootstrap-icons';
+import { Link45deg, Clock } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import { client } from '../../utils/api';
 import { HooverBox, Lines, Paper } from './styles';
@@ -60,9 +60,13 @@ const Orders = () => {
                 {!orders.length && 'Brak zamówień'}
 
                 {orders.map(order => (
-                    <HooverBox className="my-3 border rounded" key={order.id}>
+                    <HooverBox className="my-3 border rounded p-2" key={order.id}>
                         <div className="d-flex justify-content-between p-2 border-bottom">
                             <div>{order.name} tel. {order.phone}</div>
+                            <div>
+                                <Clock className="mr-1" />
+                                {format(new Date(order.created_at), 'H:m')}
+                            </div>
                             <div>
                                 <Payment type={order.payment_type} payments={order.payments} />
                             </div>
@@ -96,7 +100,7 @@ const Orders = () => {
                                 </Button></>}
                             {order.pickup_location_id && <div className="bg-warning px-2">
                                 Odbiór {order.pickup_location_name} o {order.pick_up_at}
-                                </div>}
+                            </div>}
                         </div>
                         {order.comment && <div className="p-2 border-top">
                             {order.comment}
