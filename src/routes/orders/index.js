@@ -64,11 +64,9 @@ const Orders = () => {
                         <div className="d-flex justify-content-between p-2 border-bottom">
                             <div>{order.name} tel. {order.phone}</div>
                             <div>
-                                <Clock className="mr-1" />
-                                {format(new Date(order.created_at), 'H:m')}
-                            </div>
-                            <div>
                                 <Payment type={order.payment_type} payments={order.payments} />
+                                <Clock className="mx-1" />
+                                {format(new Date(order.created_at), 'H:m')}
                             </div>
                         </div>
 
