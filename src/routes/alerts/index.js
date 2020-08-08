@@ -88,7 +88,7 @@ function Alerts() {
                     <Button variant="outline-primary" onClick={close}>Zamknij</Button>
                     <Button tabIndex="2" variant="primary" type="submit" className="float-right">
                         Zapisz
-                        </Button>
+                    </Button>
                 </Form>
             </Sidebar>
         </>

@@ -1,28 +1,12 @@
-import { format, formatISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Col, Row } from 'react-bootstrap';
-import { Link45deg, Clock } from 'react-bootstrap-icons';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Clock, Link45deg } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
+import PaymentStatus from '../../components/paymentStatus';
 import { client } from '../../utils/api';
+import formatDate from '../../utils/date';
 import { HooverBox, Lines, Paper } from './styles';
-
-const Payment = ({ type, payments }) => {
-    if (type === 'cash') {
-        return 'Gotówka';
-    } else if (type === 'wire_transfer') {
-        const lastPayment = payments[payments.length - 1];
-        const status = lastPayment.status;
-        const statuses = {
-            'new': 'Rozpoczęta',
-            'error': 'Błędna',
-            'finished': 'Zakończona',
-        };
-
-        return <span>Przelew <Badge variant={status === "finished" ? "success" : "secondary"}>{statuses[status]}</Badge></span>;
-    } else if (type === 'card_on_site') {
-        return 'Karta';
-    }
-};
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -36,7 +20,6 @@ const Orders = () => {
 
             setOrders(orders);
         }
-
         data();
     }, [date]);
 
@@ -49,7 +32,7 @@ const Orders = () => {
                     </div>
                     <div className="text-right">
                         <DatePicker
-                            customInput={<Button size="sm" variant="outline-secondary">{format(date, 'iiii, d MMM')}</Button>}
+                            customInput={<Button size="sm" variant="outline-secondary">{formatDate(date, 'iiii, d MMM')}</Button>}
                             popperPlacement="bottom-end"
                             onChange={setDate}
                         />
@@ -61,12 +44,14 @@ const Orders = () => {
 
                 {orders.map(order => (
                     <HooverBox className="my-3 border rounded p-2" key={order.id}>
-                        <div className="d-flex justify-content-between p-2 border-bottom">
-                            <div>{order.name} tel. {order.phone}</div>
-                            <div>
-                                <Payment type={order.payment_type} payments={order.payments} />
-                                <Clock className="mx-1" />
-                                {format(new Date(order.created_at.replace(/-/g, "/")), 'H:m')}
+                        <div className="d-flex justify-content-between border-bottom py-2">
+                            <div>{order.name} <span className="d-block d-lg-inline">tel. {order.phone}</span></div>
+                            <div className="text-right">
+                                <PaymentStatus type={order.payment_type} payments={order.payments} />
+                                <span style={{ display: 'inline-block' }}>
+                                    <Clock className="mx-1" />
+                                    {formatDate(new Date(order.created_at.replace(/-/g, "/")), 'H:m')}
+                                </span>
                             </div>
                         </div>
 
@@ -78,6 +63,11 @@ const Orders = () => {
                                         <div style={{ whiteSpace: "nowrap" }}>{meal.price} zł</div>
                                     </div>
                                 ))}
+                                {order.promo_code &&
+                                    <div className="d-flex justify-content-between">
+                                        <div>Kod rabatowy "{order.promo_code.code}"</div>
+                                        <div>{order.promo_code.value} {order.promo_code.type === 'percent' ? '%' : 'zł'} </div>
+                                    </div>}
                                 <div className="d-flex justify-content-between font-weight-bold">
                                     <div>Razem</div>
                                     <div>{order.total} zł</div>
@@ -85,7 +75,7 @@ const Orders = () => {
                             </Lines>
                         </Paper>
 
-                        <div className="p-2 border-top d-flex justify-content-between align-items-center">
+                        <div className="py-2 border-top d-flex justify-content-between align-items-center">
                             {!order.pickup_location_id && <>
                                 <div>
                                     {order.address}
@@ -100,7 +90,7 @@ const Orders = () => {
                                 Odbiór {order.pickup_location_name} o {order.pick_up_at}
                             </div>}
                         </div>
-                        {order.comment && <div className="p-2 border-top">
+                        {order.comment && <div className="py-2 border-top">
                             {order.comment}
                         </div>}
                     </HooverBox>

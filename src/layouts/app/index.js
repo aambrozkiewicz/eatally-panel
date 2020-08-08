@@ -11,6 +11,7 @@ import Alerts from '../../routes/alerts';
 import Dashboard from '../../routes/dashboard';
 import DailyMenu from '../../routes/menu/daily';
 import FixedMenu from '../../routes/menu/fixed';
+import Settings from '../../routes/openingHours';
 import Orders from '../../routes/orders';
 import { removeToken } from '../../utils/auth';
 import "./app.css";
@@ -78,6 +79,9 @@ function App() {
               <Nav.Link as={Link} to={`${url}/alerts`}>
                 Komunikaty
               </Nav.Link>
+              <Nav.Link as={Link} to={`${url}/opening-hours`}>
+                Godziny otwarcia
+              </Nav.Link>
               <hr />
               <div className="text-small text-muted ml-lg-2">
                 {cateringName}
@@ -107,6 +111,9 @@ function App() {
               </Route>
               <Route path={`${path}/alerts`}>
                 <Alerts />
+              </Route>
+              <Route path={`${path}/opening-hours`}>
+                <Settings />
               </Route>
               <Route path={`${path}`}>
                 <Dashboard />
