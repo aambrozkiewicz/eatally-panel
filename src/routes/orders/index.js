@@ -66,7 +66,6 @@ const Orders = () => {
                             <div>
                                 <Payment type={order.payment_type} payments={order.payments} />
                                 <Clock className="mx-1" />
-                                {format(new Date(order.created_at), 'H:m')}
                             </div>
                         </div>
 
