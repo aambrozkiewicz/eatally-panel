@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { client } from '../../utils/api';
 import { useForm } from 'react-hook-form';
+import { client } from '../../utils/api';
 
 const weekdays = {
     'Mon': 'Poniedziałek',
@@ -14,7 +14,6 @@ const weekdays = {
 };
 
 function OpeningHours() {
-    const [hours, setHours] = useState([]);
     const { register, handleSubmit, setValue } = useForm();
 
     useEffect(() => {
@@ -27,7 +26,7 @@ function OpeningHours() {
         }
 
         data();
-    }, []);
+    }, [setValue]);
 
     function submit(data) {
         console.log(data);
