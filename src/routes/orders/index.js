@@ -1,27 +1,18 @@
 import { formatISO } from 'date-fns';
-import React, { useEffect, useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Col, Row, Spinner } from 'react-bootstrap';
 import { Clock, Link45deg } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import PaymentStatus from '../../components/paymentStatus';
-import { client } from '../../utils/api';
+import { useApi } from '../../hooks';
 import formatDate from '../../utils/date';
 import { HooverBox, Lines, Paper } from './styles';
 
 const Orders = () => {
-    const [orders, setOrders] = useState([]);
     const [date, setDate] = useState(new Date());
+    const today = formatISO(date, { representation: 'date' });
+    const { loading, data: orders = [] } = useApi(`orders?today=${today}`);
     const total = orders.reduce((acc, curr) => acc + curr.total, 0);
-
-    useEffect(() => {
-        async function data() {
-            const today = formatISO(date, { representation: 'date' });
-            const orders = await client(`orders?today=${today}`);
-
-            setOrders(orders);
-        }
-        data();
-    }, [date]);
 
     return (
         <Row className="justify-content-center">
@@ -41,6 +32,8 @@ const Orders = () => {
                 <p>Na sumę <strong>{total}</strong> zł</p>
 
                 {!orders.length && 'Brak zamówień'}
+
+                {loading && <Spinner animation="border" variant="primary" />}
 
                 {orders.map(order => (
                     <HooverBox className="my-3 border rounded p-2" key={order.id}>

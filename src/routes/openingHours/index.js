@@ -31,7 +31,7 @@ function OpeningHours() {
 
     async function submit(data) {
         setSaving(true);
-        const response = await client('opening-hours', {
+        await client('opening-hours', {
             method: 'POST',
             body: { hours: data },
         });

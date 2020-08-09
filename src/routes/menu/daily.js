@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Calendar2Date } from 'react-bootstrap-icons';
@@ -9,6 +8,7 @@ import MealList from '../../components/mealList';
 import Sidebar from '../../components/sidebar';
 import { fetchCategories } from '../../modules/categories/actions';
 import { deleteMeal, fetchMeals } from '../../modules/meals/actions';
+import formatDate from '../../utils/date';
 
 function Menu() {
     const [editing, setEditing] = useState(false);
@@ -46,7 +46,7 @@ function Menu() {
             <Row className="justify-content-center">
                 <Col md="7">
                     <div className="d-flex justify-content-between">
-                        <h2 style={{ margin: 0 }}>Menu na {format(date, 'iiii, d MMM')}</h2>
+                        <h2 style={{ margin: 0 }}>Menu na {formatDate(date, 'iiii, d MMM')}</h2>
                         <div>
                             <DatePicker
                                 customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="28" /></Button>}
