@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { client } from '../../utils/api';
 
@@ -15,6 +15,7 @@ const weekdays = {
 
 function OpeningHours() {
     const { register, handleSubmit, setValue } = useForm();
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         async function data() {
@@ -28,8 +29,13 @@ function OpeningHours() {
         data();
     }, [setValue]);
 
-    function submit(data) {
-        console.log(data);
+    async function submit(data) {
+        setSaving(true);
+        const response = await client('opening-hours', {
+            method: 'POST',
+            body: { hours: data },
+        });
+        setSaving(false);
     }
 
     return (
@@ -51,7 +57,9 @@ function OpeningHours() {
                                 </Col>
                             </Form.Group>))}
                         <div className="text-right">
-                            <Button type="submit" className="">Zapisz</Button>
+                            <Button type="submit" disabled={saving}>
+                                {saving && <Spinner animation="border" size="sm" />} Zapisz
+                            </Button>
                         </div>
                     </Form>
                 </div>
