@@ -31,7 +31,7 @@ const Orders = () => {
                 </div>
                 <p>Na sumę <strong>{total}</strong> zł</p>
 
-                {!orders.length && 'Brak zamówień'}
+                {!loading && !orders.length && 'Brak zamówień'}
 
                 {loading && <Spinner animation="border" variant="primary" />}
 

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchCategories } from './actions';
+import { fetchCategories, setCategory, removeCategory } from './actions';
 
 const categoriesReducer = createReducer({}, {
     [fetchCategories.fulfilled]: (state, action) => {
@@ -8,6 +8,12 @@ const categoriesReducer = createReducer({}, {
             return acc;
         }, {});
     },
+    [setCategory]: (state, { payload }) => {
+        state[payload.id] = payload;
+    },
+    [removeCategory]: (state, { payload }) => {
+        delete state[payload];
+    }
 });
 
 export default categoriesReducer;

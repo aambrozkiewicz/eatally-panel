@@ -1,3 +1,5 @@
+import { faCog, faAsterisk, faStickyNote, faCommentMedical, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Collapse, Container, Nav, Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,11 +10,13 @@ import {
 import styled from 'styled-components';
 import { fetchMe } from '../../modules/user/actions';
 import Alerts from '../../routes/alerts';
+import Categories from '../../routes/categories';
 import Dashboard from '../../routes/dashboard';
 import DailyMenu from '../../routes/menu/daily';
 import FixedMenu from '../../routes/menu/fixed';
-import Settings from '../../routes/openingHours';
+import OpeningHours from '../../routes/openingHours';
 import Orders from '../../routes/orders';
+import Settings from '../../routes/settings';
 import { removeToken } from '../../utils/auth';
 import "./app.css";
 
@@ -54,7 +58,7 @@ function App() {
           <Navbar.Collapse id="sidebar-navbar-nav" className="align-items-start w-100">
             <Nav className="sidebar-nav w-100">
               <Nav.Link as={Link} to={`${url}`}>
-                Początek
+                <FontAwesomeIcon icon={faAsterisk} /> Początek
               </Nav.Link>
               <Nav.Link as={Link} to={`${url}/orders`}>
                 Zamówienia
@@ -68,7 +72,7 @@ function App() {
                   Menu
                 </Nav.Link>
                 <Collapse in={open}>
-                  <div id="more-menu">
+                  <div className="sub-nav">
                     <Nav className="flex-column">
                       <Nav.Link as={Link} to={`${url}/daily-menu`}>Codzienne</Nav.Link>
                       <Nav.Link as={Link} to={`${url}/fixed-menu`}>Stałe</Nav.Link>
@@ -79,8 +83,8 @@ function App() {
               <Nav.Link as={Link} to={`${url}/alerts`}>
                 Komunikaty
               </Nav.Link>
-              <Nav.Link as={Link} to={`${url}/opening-hours`}>
-                Godziny otwarcia
+              <Nav.Link as={Link} to={`${url}/settings/opening-hours`}>
+                <FontAwesomeIcon icon={faCog} /> Ustawienia
               </Nav.Link>
               <hr />
               <div className="text-small text-muted ml-lg-2">
@@ -113,6 +117,12 @@ function App() {
                 <Alerts />
               </Route>
               <Route path={`${path}/opening-hours`}>
+                <OpeningHours />
+              </Route>
+              <Route path={`${path}/categories`}>
+                <Categories />
+              </Route>
+              <Route path={`${path}/settings`}>
                 <Settings />
               </Route>
               <Route path={`${path}`}>

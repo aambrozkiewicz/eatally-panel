@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { client } from "../../utils/api";
 
 export const fetchCategories = createAsyncThunk(
@@ -7,3 +7,6 @@ export const fetchCategories = createAsyncThunk(
         return client('categories');
     }
 );
+
+export const setCategory = createAction('category/set');
+export const removeCategory = createAction('category/remove');

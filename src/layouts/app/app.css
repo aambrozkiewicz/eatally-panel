@@ -25,6 +25,16 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.sub-nav a.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+}
+
 @media (min-width: 992px) {
     .wrapper {
         display: flex;
