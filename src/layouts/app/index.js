@@ -1,4 +1,4 @@
-import { faCog, faAsterisk, faStickyNote, faCommentMedical, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAsterisk, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Collapse, Container, Nav, Navbar } from 'react-bootstrap';
