@@ -10,11 +10,9 @@ import {
 import styled from 'styled-components';
 import { fetchMe } from '../../modules/user/actions';
 import Alerts from '../../routes/alerts';
-import Categories from '../../routes/categories';
 import Dashboard from '../../routes/dashboard';
 import DailyMenu from '../../routes/menu/daily';
 import FixedMenu from '../../routes/menu/fixed';
-import OpeningHours from '../../routes/openingHours';
 import Orders from '../../routes/orders';
 import Settings from '../../routes/settings';
 import { removeToken } from '../../utils/auth';
@@ -115,12 +113,6 @@ function App() {
               </Route>
               <Route path={`${path}/alerts`}>
                 <Alerts />
-              </Route>
-              <Route path={`${path}/opening-hours`}>
-                <OpeningHours />
-              </Route>
-              <Route path={`${path}/categories`}>
-                <Categories />
               </Route>
               <Route path={`${path}/settings`}>
                 <Settings />

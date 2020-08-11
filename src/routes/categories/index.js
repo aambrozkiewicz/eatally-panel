@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Button, Form, ListGroup, ButtonGroup } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories, setCategory, removeCategory } from '../../modules/categories/actions';
-import Sidebar from '../../components/sidebar';
+import { Button, Col, Form, ListGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import Sidebar from '../../components/sidebar';
+import { fetchCategories, removeCategory, setCategory } from '../../modules/categories/actions';
 import { client } from '../../utils/api';
-import ConfirmButton from '../../components/confirmButton';
+import styled from 'styled-components';
+
+const ActionLink = styled.button`
+    background: transparent;
+    border: none;
+    padding: 0;
+`;
 
 function Categories() {
     const [show, setShow] = useState(false);
@@ -24,7 +30,7 @@ function Categories() {
         if (!categoryId) {
             category = await client('category', { method: 'POST', body: data });
         } else {
-            category = await client(`category/${categoryId}`, {method: 'PATCH', body: data});
+            category = await client(`category/${categoryId}`, { method: 'PATCH', body: data });
         }
 
         dispatch(setCategory(category));
@@ -39,7 +45,7 @@ function Categories() {
 
     function close() {
         setShow(false);
-        reset({name: ''});
+        reset({ name: '' });
     }
 
     async function destroy(categoryId) {
@@ -60,18 +66,14 @@ function Categories() {
                     <ListGroup>
                         {Object.entries(categories).map(([_, category]) => (
                             <ListGroup.Item className="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
-                                <div className="pb-2">
+                                <div>
                                     {category.name}
                                 </div>
-                                <ButtonGroup>
-                                    <Button size="sm" variant="outline-dark" onClick={() => edit(category)}>
-                                        Edycja
-                                    </Button>
-                                    <ConfirmButton
-                                        onClick={() => destroy(category.id)}
-                                        size="sm"
-                                        variant="danger">Usuń</ConfirmButton>
-                                </ButtonGroup>
+                                <div style={{ fontSize: '0.775rem' }}>
+                                    <ActionLink onClick={() => edit(category)} className="text-primary mr-2">edycja</ActionLink>
+                                    <ActionLink onClick={() => destroy(category.id)} className="text-primary">usuń</ActionLink>
+                                </div>
+
                             </ListGroup.Item>
                         ))}
                     </ListGroup>

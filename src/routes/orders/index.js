@@ -1,17 +1,18 @@
 import { formatISO } from 'date-fns';
 import React, { useState } from 'react';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
-import { Clock, Link45deg } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import PaymentStatus from '../../components/paymentStatus';
 import { useApi } from '../../hooks';
 import formatDate from '../../utils/date';
 import { HooverBox, Lines, Paper } from './styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faSync } from '@fortawesome/free-solid-svg-icons';
 
 const Orders = () => {
     const [date, setDate] = useState(new Date());
     const today = formatISO(date, { representation: 'date' });
-    const { loading, data: orders = [] } = useApi(`orders?today=${today}`);
+    const { reload, loading, data: orders = [] } = useApi(`orders?today=${today}`);
     const total = orders.reduce((acc, curr) => acc + curr.total, 0);
 
     return (
@@ -21,7 +22,10 @@ const Orders = () => {
                     <div>
                         <h2 style={{ margin: 0 }}>Zamówienia</h2>
                     </div>
-                    <div className="text-right">
+                    <div>
+                        <Button className="mr-2" size="sm" onClick={() => reload()}>
+                            <FontAwesomeIcon icon={faSync} />
+                        </Button>
                         <DatePicker
                             customInput={<Button size="sm" variant="outline-secondary">{formatDate(date, 'iiii, d MMM')}</Button>}
                             popperPlacement="bottom-end"
@@ -35,15 +39,15 @@ const Orders = () => {
 
                 {loading && <Spinner animation="border" variant="primary" />}
 
-                {orders.map(order => (
+                {!loading && orders.map(order => (
                     <HooverBox className="my-3 border rounded p-2" key={order.id}>
                         <div className="d-flex justify-content-between border-bottom py-2">
                             <div>{order.name} <span className="d-block d-lg-inline">tel. {order.phone}</span></div>
                             <div className="text-right">
                                 <PaymentStatus type={order.payment_type} payments={order.payments} />
                                 <span style={{ display: 'inline-block' }}>
-                                    <Clock className="mx-1" />
-                                    {formatDate(new Date(order.created_at.replace(/-/g, "/")), 'H:m')}
+                                    <FontAwesomeIcon icon={faClock} className="mx-1" />
+                                    {formatDate(new Date(order.created_at.replace(/-/g, "/")), 'HH:mm')}
                                 </span>
                             </div>
                         </div>
@@ -77,7 +81,7 @@ const Orders = () => {
                                     size="sm"
                                     variant="outline-primary"
                                     href={`https://www.google.com/maps/search/?api=1&query=${order.address}`} target="_blank">
-                                    <Link45deg /> Mapa
+                                    Mapa
                                 </Button></>}
                             {order.pickup_location_id && <div className="bg-warning px-2">
                                 Odbiór {order.pickup_location_name} o {order.pick_up_at}

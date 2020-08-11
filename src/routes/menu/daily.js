@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { Calendar2Date } from 'react-bootstrap-icons';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import MealForm from '../../components/mealForm';
@@ -47,14 +46,16 @@ function Menu() {
                 <Col md="7">
                     <div className="d-flex justify-content-between">
                         <h2 style={{ margin: 0 }}>Menu na {formatDate(date, 'iiii, d MMM')}</h2>
-                        <div>
+                        <div style={{whiteSpace: "nowrap"}}>
+                            <Button variant="outline-primary" onClick={() => setShowSidebar(true)}>Dodaj</Button>
                             <DatePicker
-                                customInput={<Button size="sm" variant="outline-secondary"><Calendar2Date size="28" /></Button>}
+                                customInput={<Button variant="outline-secondary">Zmień</Button>}
                                 popperPlacement="bottom-end"
                                 onChange={setDate}
-                            />{' '}
-                            <Button variant="outline-primary" onClick={() => setShowSidebar(true)}>Dodaj</Button>
+                                className="ml-1"
+                            />
                         </div>
+
                     </div>
                     <hr />
                     <MealList meals={meals} onEdit={meal => { edit(meal) }} onDelete={destroy} />

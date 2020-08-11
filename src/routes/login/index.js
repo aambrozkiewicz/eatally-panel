@@ -1,6 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faSkiing} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { DoorOpen } from 'react-bootstrap-icons';
 import { useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
 import { apiUrl } from '../../utils/api';
@@ -55,7 +56,13 @@ const Login = () => {
                                 <Form.Control
                                     type="email"
                                     placeholder="Twój adres e-mail"
-                                    ref={register({ required: "To pole jest wymagane" })}
+                                    ref={register({
+                                        required: "To pole jest wymagane",
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "Niepoprawny adres e-mail"
+                                        }
+                                    })}
                                     name="email"
                                     isInvalid={errors.email} />
                                 <Form.Control.Feedback type="invalid">
@@ -74,7 +81,7 @@ const Login = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Button variant="outline-dark" onClick={demo}>
-                                <DoorOpen size="20" /> Demo
+                                <FontAwesomeIcon icon={faSkiing} /> Demo
                             </Button>
                             <Button variant="primary" type="submit" className="float-right">
                                 Logowanie
