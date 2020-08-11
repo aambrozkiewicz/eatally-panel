@@ -14,7 +14,7 @@ export const useApi = (path, options) => {
 
     useEffect(() => {
         load();
-    }, [path, options]);
+    }, [path, options, load]);
 
     return { loading, data, reload: load };
 };
