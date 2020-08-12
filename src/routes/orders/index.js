@@ -23,7 +23,7 @@ const Orders = () => {
                         <h2 style={{ margin: 0 }}>Zamówienia</h2>
                     </div>
                     <div>
-                        <Button className="mr-2" size="sm" onClick={() => reload()}>
+                        <Button className="mr-2" size="sm" variant="outline-primary" onClick={() => reload()}>
                             <FontAwesomeIcon icon={faSync} />
                         </Button>
                         <DatePicker

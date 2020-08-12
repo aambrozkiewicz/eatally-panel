@@ -6,6 +6,16 @@ import { Meal, Meals } from './styles';
 const MealItem = ({ meal, categories, ...props }) => {
     const [active, setActive] = useState();
 
+    const renderCategory = (categoryId) => {
+        let categoryName = 'Bez kategorii';
+        
+        if (categories[categoryId]) {
+            categoryName = categories[categoryId].name;
+        }
+
+        return <div className="text-muted">{categoryName}</div>;
+    }
+
     return (
         <Meal
             className="border p-3 my-2 rounded d-flex justify-content-between"
@@ -13,8 +23,8 @@ const MealItem = ({ meal, categories, ...props }) => {
             onMouseLeave={() => setActive(false)}>
             <div>
                 {meal.name}
-                {meal.category_id && categories[meal.category_id] && <div className="text-muted">{categories[meal.category_id].name}</div>}
-                {!meal.category_id && <div className="text-muted">Bez kategorii</div>}
+                {renderCategory(meal.category_id)}
+                
             </div>
             <div className="pl-2 text-right" style={{ whiteSpace: "nowrap" }}>
                 {meal.price} zł

@@ -65,7 +65,7 @@ function Categories() {
 
                     <ListGroup>
                         {Object.entries(categories).map(([_, category]) => (
-                            <ListGroup.Item className="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
+                            <ListGroup.Item className="d-flex justify-content-between align-items-lg-center">
                                 <div>
                                     {category.name}
                                 </div>

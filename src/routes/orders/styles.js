@@ -4,6 +4,7 @@ export const HooverBox = styled.div`
     background-color: #fff;
     transition: all .3s ease-in-out;
     font-size: 0.9rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
 
     &:hover {
         box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
