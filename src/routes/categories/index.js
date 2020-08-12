@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, ListGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import Sidebar from '../../components/sidebar';
 import { fetchCategories, removeCategory, setCategory } from '../../modules/categories/actions';
+import { NiceButton } from '../../styles';
 import { client } from '../../utils/api';
-import styled from 'styled-components';
 
 const ActionLink = styled.button`
     background: transparent;
@@ -59,7 +60,7 @@ function Categories() {
                 <Col lg="7">
                     <div className="d-flex justify-content-between align-items-center">
                         <h2 style={{ margin: 0 }}>Kategorie</h2>
-                        <Button onClick={() => setShow(true)} variant="outline-primary">+ Nowa</Button>
+                        <NiceButton onClick={() => setShow(true)} variant="outline-primary">Nowa</NiceButton>
                     </div>
                     <hr />
 
@@ -69,7 +70,7 @@ function Categories() {
                                 <div>
                                     {category.name}
                                 </div>
-                                <div style={{ fontSize: '0.775rem' }}>
+                                <div style={{ fontSize: '0.775rem', whiteSpace: 'nowrap' }}>
                                     <ActionLink onClick={() => edit(category)} className="text-primary mr-2">edycja</ActionLink>
                                     <ActionLink onClick={() => destroy(category.id)} className="text-primary">usuń</ActionLink>
                                 </div>

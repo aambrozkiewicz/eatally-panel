@@ -6,6 +6,7 @@ import MealList from '../../components/mealList';
 import { fetchCategories } from '../../modules/categories/actions';
 import { deleteMeal, fetchMeals } from '../../modules/meals/actions';
 import Sidebar from '../../components/sidebar';
+import { NiceButton } from '../../styles';
 
 function Menu() {
   const [editing, setEditing] = useState(false);
@@ -40,7 +41,7 @@ function Menu() {
         <Col md="7">
           <div className="d-flex justify-content-between align-items-center">
             <h2 style={{ margin: 0 }}>Stałe menu</h2>
-            <Button variant="outline-primary" onClick={() => setShowSidebar(true)}>Dodaj</Button>
+            <NiceButton variant="outline-primary" onClick={() => setShowSidebar(true)}>Nowe danie</NiceButton>
           </div>
           <hr />
           <MealList meals={meals} onEdit={meal => { edit(meal) }} onDelete={destroy} />

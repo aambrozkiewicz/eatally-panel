@@ -1,13 +1,14 @@
+import { faClock, faSync } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatISO } from 'date-fns';
 import React, { useState } from 'react';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import PaymentStatus from '../../components/paymentStatus';
 import { useApi } from '../../hooks';
-import formatDate from '../../utils/date';
+import { NiceButton } from '../../styles';
+import { formatDate, formatPrice } from '../../utils/format';
 import { HooverBox, Lines, Paper } from './styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faSync } from '@fortawesome/free-solid-svg-icons';
 
 const Orders = () => {
     const [date, setDate] = useState(new Date());
@@ -22,18 +23,20 @@ const Orders = () => {
                     <div>
                         <h2 style={{ margin: 0 }}>Zamówienia</h2>
                     </div>
-                    <div>
-                        <Button className="mr-2" size="sm" variant="outline-primary" onClick={() => reload()}>
-                            <FontAwesomeIcon icon={faSync} />
-                        </Button>
-                        <DatePicker
-                            customInput={<Button size="sm" variant="outline-secondary">{formatDate(date, 'iiii, d MMM')}</Button>}
-                            popperPlacement="bottom-end"
-                            onChange={setDate}
-                        />
+                    <div className="text-right">
+                        <div className="d-inline-block">
+                            <DatePicker
+                                customInput={<NiceButton className="bg-white text-dark">{formatDate(date, 'iiii, d MMM')}</NiceButton>}
+                                popperPlacement="bottom-end"
+                                onChange={setDate}
+                            />
+                        </div>
+                        <NiceButton onClick={() => reload()} className="mt-2 mt-0-lg ml-lg-2">
+                            <FontAwesomeIcon icon={faSync} /> Odśwież
+                        </NiceButton>
                     </div>
                 </div>
-                <p>Na sumę <strong>{total}</strong> zł</p>
+                <p>Na sumę <strong>{formatPrice(total)}</strong> zł</p>
 
                 {!loading && !orders.length && 'Brak zamówień'}
 

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import ConfirmButton from '../../components/confirmButton';
 import Sidebar from '../../components/sidebar';
 import { client } from '../../utils/api';
+import { NiceButton } from '../../styles';
 
 function Alerts() {
     const [alerts, setAlerts] = useState([]);
@@ -49,7 +50,7 @@ function Alerts() {
                 <Col lg="7">
                     <div className="d-flex justify-content-between align-items-center">
                         <h2 style={{ margin: 0 }}>Komunikaty</h2>
-                        <Button onClick={() => setShow(true)} variant="outline-primary">Nowy</Button>
+                        <NiceButton onClick={() => setShow(true)} variant="outline-primary">Nowy</NiceButton>
                     </div>
                     <hr />
                     <ListGroup>
