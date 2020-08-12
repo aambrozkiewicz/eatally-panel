@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
-  Redirect, Route, Switch
+  Redirect,
+  Route,
+  Switch,
 } from "react-router-dom";
-import AppLayout from './layouts/app';
-import Login from './routes/login';
-import { getToken } from './utils/auth';
+import AppLayout from "./layouts/app";
+import Login from "./routes/login";
+import { getToken } from "./utils/auth";
 
 function ProtectedRoute({ children, ...rest }) {
   return (
@@ -15,13 +17,13 @@ function ProtectedRoute({ children, ...rest }) {
         getToken() ? (
           children
         ) : (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-            />
-          )
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
       }
     />
   );
