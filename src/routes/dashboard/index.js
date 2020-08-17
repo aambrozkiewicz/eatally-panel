@@ -1,16 +1,11 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
-import { Link, useRouteMatch } from "react-router-dom";
 import Graph from "../../components/graph";
 import { useApi } from "../../hooks";
-import { NiceButton } from "../../styles";
 import { Lines } from "../orders/styles";
 import { RippedPaper } from "./styles";
 
 const Dashboard = () => {
-  const { url } = useRouteMatch();
   const { loading, data: { meals = [], byDay = [] } = {} } = useApi(
     "meal/summary"
   );
