@@ -5,12 +5,12 @@ import MealForm from "../../components/mealForm";
 import MealList from "../../components/mealList";
 import { fetchCategories } from "../../modules/categories/actions";
 import { deleteMeal, fetchMeals } from "../../modules/meals/actions";
-import Sidebar from "../../components/sidebar";
+import Drawer from "../../components/drawer";
 import { NiceButton } from "../../styles";
 
 function Menu() {
   const [editing, setEditing] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   const dispatch = useDispatch();
   const meals = useSelector((state) =>
     Object.values(state.meals).filter((m) => m.date === null)
@@ -27,12 +27,12 @@ function Menu() {
 
   function edit(meal) {
     setEditing(meal);
-    setShowSidebar(true);
+    setShowDrawer(true);
   }
 
   function close() {
     setEditing(false);
-    setShowSidebar(false);
+    setShowDrawer(false);
   }
 
   return (
@@ -43,7 +43,7 @@ function Menu() {
             <h2 style={{ margin: 0 }}>Stałe menu</h2>
             <NiceButton
               variant="outline-primary"
-              onClick={() => setShowSidebar(true)}
+              onClick={() => setShowDrawer(true)}
             >
               Nowe danie
             </NiceButton>
@@ -58,7 +58,7 @@ function Menu() {
           />
         </Col>
       </Row>
-      <Sidebar open={showSidebar} className="p-3 h-100 bg-white border-left">
+      <Drawer open={showDrawer} className="p-3 h-100 bg-white border-left">
         <Button
           style={{ position: "absolute", right: "1.5rem" }}
           size="sm"
@@ -81,7 +81,7 @@ function Menu() {
             <MealForm className="pt-2" onSuccess={close}></MealForm>
           </div>
         )}
-      </Sidebar>
+      </Drawer>
     </>
   );
 }

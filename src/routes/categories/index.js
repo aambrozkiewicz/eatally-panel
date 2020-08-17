@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, ListGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Sidebar from "../../components/sidebar";
+import Drawer from "../../components/drawer";
+import { useOnClickOutside } from "../../hooks";
 import {
   fetchCategories,
   removeCategory,
@@ -24,6 +25,9 @@ function Categories() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const { register, handleSubmit, errors, reset } = useForm();
+  const drawerRef = useRef();
+
+  useOnClickOutside(drawerRef, () => close());
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -75,7 +79,10 @@ function Categories() {
 
           <ListGroup>
             {Object.entries(categories).map(([_, category]) => (
-              <ListGroup.Item className="d-flex justify-content-between align-items-lg-center">
+              <ListGroup.Item
+                key={category.id}
+                className="d-flex justify-content-between align-items-lg-center"
+              >
                 <div>{category.name}</div>
                 <div style={{ fontSize: "0.775rem", whiteSpace: "nowrap" }}>
                   <ActionLink
@@ -96,7 +103,11 @@ function Categories() {
           </ListGroup>
         </Col>
       </Row>
-      <Sidebar open={show} className="p-3 h-100 bg-white border-left">
+      <Drawer
+        open={show}
+        className="p-3 h-100 bg-white border-left"
+        ref={drawerRef}
+      >
         <Form onSubmit={handleSubmit(submit)}>
           <Form.Group>
             <Form.Label>Nazwa</Form.Label>
@@ -120,7 +131,7 @@ function Categories() {
             Zapisz
           </Button>
         </Form>
-      </Sidebar>
+      </Drawer>
     </>
   );
 }

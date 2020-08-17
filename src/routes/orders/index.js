@@ -45,6 +45,7 @@ const Orders = () => {
             </NiceButton>
           </div>
         </div>
+        <hr />
         <p>
           Na sumę <strong>{formatPrice(total)}</strong> zł
         </p>

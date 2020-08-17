@@ -1,5 +1,5 @@
-const { default: styled } = require("styled-components");
-const { Paper } = require("../orders/styles");
+import styled from "styled-components";
+import { Paper } from "../orders/styles";
 
 export const RippedPaper = styled(Paper)`
   &:after {

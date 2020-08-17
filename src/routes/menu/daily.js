@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import MealForm from "../../components/mealForm";
 import MealList from "../../components/mealList";
-import Sidebar from "../../components/sidebar";
+import Drawer from "../../components/drawer";
 import { fetchCategories } from "../../modules/categories/actions";
 import { deleteMeal, fetchMeals } from "../../modules/meals/actions";
 import { NiceButton } from "../../styles";
@@ -12,7 +12,7 @@ import { formatDate } from "../../utils/format";
 
 function Menu() {
   const [editing, setEditing] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const meals = useSelector((state) =>
@@ -33,12 +33,12 @@ function Menu() {
 
   function edit(meal) {
     setEditing(meal);
-    setShowSidebar(true);
+    setShowDrawer(true);
   }
 
   function close() {
     setEditing(false);
-    setShowSidebar(false);
+    setShowDrawer(false);
   }
 
   return (
@@ -61,7 +61,7 @@ function Menu() {
                   onChange={setDate}
                 />
               </div>
-              <NiceButton className="ml-2" onClick={() => setShowSidebar(true)}>
+              <NiceButton className="ml-2" onClick={() => setShowDrawer(true)}>
                 Dodaj
               </NiceButton>
             </div>
@@ -76,7 +76,7 @@ function Menu() {
           />
         </Col>
       </Row>
-      <Sidebar open={showSidebar} className="p-3 h-100 bg-white border-left">
+      <Drawer open={showDrawer} className="p-3 h-100 bg-white border-left">
         <Button
           style={{ position: "absolute", right: "1.5rem" }}
           size="sm"
@@ -99,7 +99,7 @@ function Menu() {
             <MealForm className="pt-2" date={date} onSuccess={close}></MealForm>
           </div>
         )}
-      </Sidebar>
+      </Drawer>
     </>
   );
 }

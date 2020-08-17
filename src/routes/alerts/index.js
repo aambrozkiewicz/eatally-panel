@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import ConfirmButton from "../../components/confirmButton";
-import Sidebar from "../../components/sidebar";
+import Drawer from "../../components/drawer";
 import { client } from "../../utils/api";
 import { NiceButton } from "../../styles";
 
@@ -90,7 +90,7 @@ function Alerts() {
           </ListGroup>
         </Col>
       </Row>
-      <Sidebar open={show} className="p-3 h-100 bg-white border-left">
+      <Drawer open={show} className="p-3 h-100 bg-white border-left">
         <Form onSubmit={handleSubmit(submit)}>
           <Form.Group>
             <Form.Label>Treść komunikatu</Form.Label>
@@ -115,7 +115,7 @@ function Alerts() {
             Zapisz
           </Button>
         </Form>
-      </Sidebar>
+      </Drawer>
     </>
   );
 }

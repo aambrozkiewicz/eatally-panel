@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Sidebar = styled.div`
+const Drawer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -18,4 +18,4 @@ const Sidebar = styled.div`
   }
 `;
 
-export default Sidebar;
+export default Drawer;
