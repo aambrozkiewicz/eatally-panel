@@ -5,11 +5,11 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import AppLayout from "./layouts/app";
+import PanelLayout from "./layouts/panel";
 import Login from "./routes/login";
 import { getToken } from "./utils/auth";
 
-function ProtectedRoute({ children, ...rest }) {
+function ProtectedRoute({ children, loginPath, ...rest }) {
   return (
     <Route
       {...rest}
@@ -19,7 +19,7 @@ function ProtectedRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: loginPath,
               state: { from: location },
             }}
           />
@@ -36,10 +36,10 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <ProtectedRoute path="/panel">
-          <AppLayout />
+        <ProtectedRoute path="/" loginPath="/login">
+          <PanelLayout />
         </ProtectedRoute>
-        <Redirect from="*" to="/panel" />
+        <Redirect from="*" to="/" />
       </Switch>
     </Router>
   );

@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, ListGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Drawer from "../../components/drawer";
-import { useOnClickOutside } from "../../hooks";
 import {
   fetchCategories,
   removeCategory,
@@ -23,11 +22,8 @@ function Categories() {
   const [show, setShow] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.panel.categories);
   const { register, handleSubmit, errors, reset } = useForm();
-  const drawerRef = useRef();
-
-  useOnClickOutside(drawerRef, () => close());
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -103,11 +99,7 @@ function Categories() {
           </ListGroup>
         </Col>
       </Row>
-      <Drawer
-        open={show}
-        className="p-3 h-100 bg-white border-left"
-        ref={drawerRef}
-      >
+      <Drawer open={show} onClose={close}>
         <Form onSubmit={handleSubmit(submit)}>
           <Form.Group>
             <Form.Label>Nazwa</Form.Label>
@@ -119,9 +111,6 @@ function Categories() {
               isInvalid={errors.name}
             />
           </Form.Group>
-          <Button variant="outline-primary" onClick={close}>
-            Zamknij
-          </Button>
           <Button
             tabIndex="2"
             variant="primary"

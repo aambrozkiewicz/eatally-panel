@@ -11,7 +11,7 @@ const MealForm = ({ className, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm();
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.panel.categories);
 
   useEffect(() => {
     reset(props.meal);

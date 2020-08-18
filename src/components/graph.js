@@ -5,9 +5,9 @@ import _ from "lodash";
 const GraphElement = styled.div`
   display: flex;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 
-  @media (max-width: 400px) {
+  @media (max-width: 1200px) {
     overflow-x: scroll;
   }
 `;
@@ -21,18 +21,14 @@ const Bars = styled.div`
 `;
 
 const Bar = styled.div`
-  width: 1.5rem;
-  height: 50px;
+  width: 2rem;
   background: #5979f7;
   margin: 0 5px;
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 700;
-  transition: all 0.5s;
 
   &:hover {
-    background-color: #ddd;
-
     &:before {
       transition: all 1s;
       opacity: 1;
@@ -41,20 +37,19 @@ const Bar = styled.div`
 
   &:before {
     content: attr(data-value);
-    text-align: center;
-    width: 1.5rem;
     position: absolute;
-    color: #666;
     top: -1rem;
+    text-align: center;
+    width: 2rem;
     opacity: 0;
   }
 
   &:after {
     content: attr(data-label);
-    width: 1.5rem;
+    width: 2rem;
     text-align: center;
     position: absolute;
-    bottom: -1rem;
+    bottom: -1.25rem;
   }
 `;
 

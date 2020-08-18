@@ -16,7 +16,7 @@ function Menu() {
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const meals = useSelector((state) =>
-    Object.values(state.meals).filter((m) => m.date !== null)
+    Object.values(state.panel.meals).filter((m) => m.date !== null)
   );
 
   useEffect(() => {
@@ -76,14 +76,7 @@ function Menu() {
           />
         </Col>
       </Row>
-      <Drawer open={showDrawer} className="p-3 h-100 bg-white border-left">
-        <Button
-          style={{ position: "absolute", right: "1.5rem" }}
-          size="sm"
-          onClick={close}
-        >
-          Zamknij
-        </Button>
+      <Drawer open={showDrawer} onClose={close}>
         {editing ? (
           <>
             <h3>Edycja</h3>

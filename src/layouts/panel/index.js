@@ -37,11 +37,10 @@ const Circle = styled.span`
 
 function App() {
   const history = useHistory();
-  const { path, url } = useRouteMatch();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username, catering: { name: cateringName } = {} } = useSelector(
-    (state) => state.user
+    (state) => state.panel.user
   );
 
   useEffect(() => {
@@ -57,7 +56,7 @@ function App() {
     <Router>
       <div className="wrapper">
         <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
-          <Navbar.Brand as={Link} to={url} className="ml-lg-2 mb-lg-5">
+          <Navbar.Brand as={Link} to="/" className="ml-lg-2 mb-lg-5">
             eatally
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
@@ -66,10 +65,10 @@ function App() {
             className="align-items-start w-100"
           >
             <Nav className="sidebar-nav w-100">
-              <Nav.Link as={Link} to={`${url}`}>
+              <Nav.Link as={Link} to="/">
                 <FontAwesomeIcon icon={faAsterisk} /> Początek
               </Nav.Link>
-              <Nav.Link as={Link} to={`${url}/orders`}>
+              <Nav.Link as={Link} to="/orders">
                 Zamówienia
               </Nav.Link>
               <Nav.Item>
@@ -85,20 +84,20 @@ function App() {
                 <Collapse in={open}>
                   <div className="sub-nav">
                     <Nav className="flex-column">
-                      <Nav.Link as={Link} to={`${url}/daily-menu`}>
+                      <Nav.Link as={Link} to="/daily-menu">
                         Codzienne
                       </Nav.Link>
-                      <Nav.Link as={Link} to={`${url}/fixed-menu`}>
+                      <Nav.Link as={Link} to="/fixed-menu">
                         Stałe
                       </Nav.Link>
                     </Nav>
                   </div>
                 </Collapse>
               </Nav.Item>
-              <Nav.Link as={Link} to={`${url}/alerts`}>
+              <Nav.Link as={Link} to="/alerts">
                 Komunikaty
               </Nav.Link>
-              <Nav.Link as={Link} to={`${url}/settings/opening-hours`}>
+              <Nav.Link as={Link} to="/settings/opening-hours">
                 <FontAwesomeIcon icon={faCog} /> Ustawienia
               </Nav.Link>
               <hr />
@@ -121,22 +120,22 @@ function App() {
         <div className="main-container">
           <Container className="py-3">
             <Switch>
-              <Route path={`${path}/orders`}>
+              <Route path="/orders">
                 <Orders />
               </Route>
-              <Route path={`${path}/daily-menu`}>
+              <Route path="/daily-menu">
                 <DailyMenu />
               </Route>
-              <Route path={`${path}/fixed-menu`}>
+              <Route path="/fixed-menu">
                 <FixedMenu />
               </Route>
-              <Route path={`${path}/alerts`}>
+              <Route path="/alerts">
                 <Alerts />
               </Route>
-              <Route path={`${path}/settings`}>
+              <Route path="/settings">
                 <Settings />
               </Route>
-              <Route path={`${path}`}>
+              <Route path="/">
                 <Dashboard />
               </Route>
             </Switch>

@@ -90,7 +90,7 @@ function Alerts() {
           </ListGroup>
         </Col>
       </Row>
-      <Drawer open={show} className="p-3 h-100 bg-white border-left">
+      <Drawer open={show} onClose={close}>
         <Form onSubmit={handleSubmit(submit)}>
           <Form.Group>
             <Form.Label>Treść komunikatu</Form.Label>
@@ -103,9 +103,6 @@ function Alerts() {
               isInvalid={errors.body}
             />
           </Form.Group>
-          <Button variant="outline-primary" onClick={close}>
-            Zamknij
-          </Button>
           <Button
             tabIndex="2"
             variant="primary"

@@ -47,10 +47,8 @@ const Orders = () => {
         </div>
         <hr />
         <p>
-          Na sumę <strong>{formatPrice(total)}</strong> zł
+          Na łączną sumę <strong>{formatPrice(total)}</strong> zł
         </p>
-
-        {!loading && !orders.length && "Brak zamówień"}
 
         {loading && <Spinner animation="border" variant="primary" />}
 

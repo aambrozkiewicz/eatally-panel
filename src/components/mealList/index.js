@@ -49,7 +49,7 @@ const MealItem = ({ meal, categories, ...props }) => {
 
 const MealList = (props) => {
   const { meals } = props;
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.panel.categories);
 
   return (
     <Meals>
@@ -61,7 +61,7 @@ const MealList = (props) => {
           {...props}
         />
       ))}
-      {!meals.length && <div>Nic tu jeszcze nie ma ;(</div>}
+      {!meals.length && <div>Brak dań, spróbuj dodać coś nowego</div>}
     </Meals>
   );
 };

@@ -19,7 +19,9 @@ const Dashboard = () => {
           <Spinner animation="border" variant="primary" className="mb-3" />
         )}
         {!loading && meals.length === 0 && (
-          <div className="ml-1">Brak dań na dzisiaj</div>
+          <p className="lead">
+            Na tę chwilę nie ma żadnych zamówień na dzisiaj
+          </p>
         )}
         {meals.length > 0 && (
           <>
@@ -34,13 +36,6 @@ const Dashboard = () => {
                 ))}
               </Lines>
             </RippedPaper>
-            {/* <div className="mt-4 text-right">
-              <Link to={`${url}/orders`}>
-                <NiceButton className="bg-white text-dark">
-                  Przejdź do zamówień <FontAwesomeIcon icon={faArrowRight} />
-                </NiceButton>
-              </Link>
-            </div> */}
           </>
         )}
         <p className="mt-4 lead">Ilość zamówień na dzień tygodnia</p>
