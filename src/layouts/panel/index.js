@@ -1,7 +1,7 @@
 import { faAsterisk, faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Collapse, Container, Nav, Navbar } from "react-bootstrap";
+import { Collapse, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -9,7 +9,6 @@ import {
   Route,
   Switch,
   useHistory,
-  useRouteMatch,
 } from "react-router-dom";
 import styled from "styled-components";
 import { fetchMe } from "../../modules/user/actions";

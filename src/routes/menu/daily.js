@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
+import Drawer from "../../components/drawer";
 import MealForm from "../../components/mealForm";
 import MealList from "../../components/mealList";
-import Drawer from "../../components/drawer";
 import { fetchCategories } from "../../modules/categories/actions";
 import { deleteMeal, fetchMeals } from "../../modules/meals/actions";
 import { NiceButton } from "../../styles";
