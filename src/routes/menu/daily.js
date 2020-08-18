@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Container } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import MealForm from "../../components/mealForm";
@@ -43,39 +43,52 @@ function Menu() {
 
   return (
     <>
-      <Row className="justify-content-center">
-        <Col md="7">
-          <div className="d-flex justify-content-between">
-            <h2 style={{ margin: 0 }}>
-              Menu na {formatDate(date, "iiii, d MMM")}
-            </h2>
-            <div style={{ whiteSpace: "nowrap" }}>
-              <div className="d-inline-block">
-                <DatePicker
-                  customInput={
-                    <NiceButton className="bg-white text-dark">
-                      Zmień
-                    </NiceButton>
-                  }
-                  popperPlacement="bottom-end"
-                  onChange={setDate}
-                />
+      <div className="bg-white border-bottom py-4 mb-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col
+              lg="7"
+              className="d-flex justify-content-between align-items-center"
+            >
+              <h2 style={{ margin: 0 }}>
+                Menu na {formatDate(date, "iiii, d MMM")}
+              </h2>
+              <div style={{ whiteSpace: "nowrap" }}>
+                <div className="d-inline-block">
+                  <DatePicker
+                    customInput={
+                      <NiceButton className="bg-white text-dark">
+                        Zmień
+                      </NiceButton>
+                    }
+                    popperPlacement="bottom-end"
+                    onChange={setDate}
+                  />
+                </div>
+                <NiceButton
+                  className="ml-2"
+                  onClick={() => setShowDrawer(true)}
+                >
+                  Dodaj
+                </NiceButton>
               </div>
-              <NiceButton className="ml-2" onClick={() => setShowDrawer(true)}>
-                Dodaj
-              </NiceButton>
-            </div>
-          </div>
-          <hr />
-          <MealList
-            meals={meals}
-            onEdit={(meal) => {
-              edit(meal);
-            }}
-            onDelete={destroy}
-          />
-        </Col>
-      </Row>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+      <Container>
+        <Row className="justify-content-center">
+          <Col md="7">
+            <MealList
+              meals={meals}
+              onEdit={(meal) => {
+                edit(meal);
+              }}
+              onDelete={destroy}
+            />
+          </Col>
+        </Row>
+      </Container>
       <Drawer open={showDrawer} onClose={close}>
         {editing ? (
           <>

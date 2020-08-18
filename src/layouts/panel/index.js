@@ -118,28 +118,28 @@ function App() {
           </Nav>
         </Navbar>
         <div className="main-container">
-          <Container className="py-3">
-            <Switch>
-              <Route path="/orders">
-                <Orders />
-              </Route>
-              <Route path="/daily-menu">
-                <DailyMenu />
-              </Route>
-              <Route path="/fixed-menu">
-                <FixedMenu />
-              </Route>
-              <Route path="/alerts">
-                <Alerts />
-              </Route>
-              <Route path="/settings">
-                <Settings />
-              </Route>
-              <Route path="/">
-                <Dashboard />
-              </Route>
-            </Switch>
-          </Container>
+          {/* <Container className="py-3"> */}
+          <Switch>
+            <Route path="/orders">
+              <Orders />
+            </Route>
+            <Route path="/daily-menu">
+              <DailyMenu />
+            </Route>
+            <Route path="/fixed-menu">
+              <FixedMenu />
+            </Route>
+            <Route path="/alerts">
+              <Alerts />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/">
+              <Dashboard />
+            </Route>
+          </Switch>
+          {/* </Container> */}
         </div>
       </div>
     </Router>

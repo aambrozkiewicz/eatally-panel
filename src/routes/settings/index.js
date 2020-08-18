@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Nav, Row } from "react-bootstrap";
+import { Col, Nav, Row, Container } from "react-bootstrap";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import Categories from "../categories";
@@ -32,7 +32,7 @@ function Settings() {
   const { path, url } = useRouteMatch();
 
   return (
-    <>
+    <Container className="my-3">
       <Row className="justify-content-center">
         <Col lg="7">
           <CustomNav variant="pills" className="rounded p-2" fill>
@@ -52,7 +52,7 @@ function Settings() {
           <Categories />
         </Route>
       </Switch>
-    </>
+    </Container>
   );
 }
 

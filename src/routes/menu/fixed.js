@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import MealForm from "../../components/mealForm";
 import MealList from "../../components/mealList";
@@ -37,27 +37,37 @@ function Menu() {
 
   return (
     <>
-      <Row className="justify-content-center">
-        <Col md="7">
-          <div className="d-flex justify-content-between align-items-center">
-            <h2 style={{ margin: 0 }}>Stałe menu</h2>
-            <NiceButton
-              variant="outline-primary"
-              onClick={() => setShowDrawer(true)}
+      <div className="bg-white border-bottom py-4 mb-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col
+              lg="7"
+              className="d-flex justify-content-between align-items-center"
             >
-              Nowe danie
-            </NiceButton>
-          </div>
-          <hr />
-          <MealList
-            meals={meals}
-            onEdit={(meal) => {
-              edit(meal);
-            }}
-            onDelete={destroy}
-          />
-        </Col>
-      </Row>
+              <h2 style={{ margin: 0 }}>Stałe menu</h2>
+              <NiceButton
+                variant="outline-primary"
+                onClick={() => setShowDrawer(true)}
+              >
+                Nowe danie
+              </NiceButton>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+      <Container>
+        <Row className="justify-content-center">
+          <Col md="7">
+            <MealList
+              meals={meals}
+              onEdit={(meal) => {
+                edit(meal);
+              }}
+              onDelete={destroy}
+            />
+          </Col>
+        </Row>
+      </Container>
       <Drawer open={showDrawer} onClose={close}>
         {editing ? (
           <>
