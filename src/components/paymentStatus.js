@@ -6,7 +6,7 @@ function PaymentStatus({ type, payments }) {
     return "Gotówka";
   } else if (type === "wire_transfer") {
     const lastPayment = payments[payments.length - 1];
-    const status = lastPayment.status || "unknown";
+    const status = (lastPayment && lastPayment.status) || "unknown";
     const statuses = {
       unknown: "Brak płatności",
       new: "Rozpoczęta",
