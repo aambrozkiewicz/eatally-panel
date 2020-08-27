@@ -6,8 +6,9 @@ function PaymentStatus({ type, payments }) {
     return "Gotówka";
   } else if (type === "wire_transfer") {
     const lastPayment = payments[payments.length - 1];
-    const status = lastPayment.status;
+    const status = lastPayment.status || "unknown";
     const statuses = {
+      unknown: "Brak płatności",
       new: "Rozpoczęta",
       error: "Błędna",
       finished: "Zakończona",
@@ -24,6 +25,8 @@ function PaymentStatus({ type, payments }) {
   } else if (type === "card_on_site") {
     return "Karta";
   }
+
+  return null;
 }
 
 export default PaymentStatus;
