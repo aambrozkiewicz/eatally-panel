@@ -2,17 +2,14 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { formatISO } from "date-fns";
 import { client } from "../../utils/api";
 
-export const fetchMeals = createAsyncThunk(
-  "meals/fetchAll",
-  async (date, thunkAPI) => {
-    let dateQuery = "";
-    if (date) {
-      dateQuery = formatISO(date, { representation: "date" });
-    }
-
-    return client(`meals?date=${dateQuery}`);
+export const fetchMeals = createAsyncThunk("meals/fetchAll", async (date) => {
+  let dateQuery = "";
+  if (date) {
+    dateQuery = formatISO(date, { representation: "date" });
   }
-);
+
+  return client(`meals?date=${dateQuery}`);
+});
 
 export const setMeal = createAction("setMeal", (meal) => {
   return {
@@ -24,9 +21,6 @@ export const setMeal = createAction("setMeal", (meal) => {
   };
 });
 
-export const deleteMeal = createAsyncThunk(
-  "meals/delete",
-  async (meal, thunkAPI) => {
-    return client(`meal/${meal.id}`, { method: "DELETE" });
-  }
+export const deleteMeal = createAsyncThunk("meals/delete", async (meal) =>
+  client(`meal/${meal.id}`, { method: "DELETE" })
 );

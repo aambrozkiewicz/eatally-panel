@@ -19,7 +19,7 @@ import FixedMenu from "../../routes/menu/fixed";
 import Orders from "../../routes/orders";
 import Settings from "../../routes/settings";
 import { removeToken } from "../../utils/auth";
-import "./app.css";
+import "./panel.css";
 
 const Circle = styled.span`
   display: inline-block;
@@ -54,7 +54,13 @@ function App() {
   return (
     <Router>
       <div className="wrapper">
-        <Navbar bg="dark" variant="dark" expand="lg" className="sidebar">
+        <Navbar
+          bg="dark"
+          variant="dark"
+          expand="lg"
+          className="sidebar"
+          collapseOnSelect
+        >
           <Navbar.Brand as={Link} to="/" className="ml-lg-2 mb-lg-5">
             eatally
           </Navbar.Brand>
@@ -64,10 +70,10 @@ function App() {
             className="align-items-start w-100"
           >
             <Nav className="sidebar-nav w-100">
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to="/" eventKey="1">
                 <FontAwesomeIcon icon={faAsterisk} /> Początek
               </Nav.Link>
-              <Nav.Link as={Link} to="/orders">
+              <Nav.Link as={Link} to="/orders" eventKey="2">
                 Zamówienia
               </Nav.Link>
               <Nav.Item>
@@ -83,41 +89,45 @@ function App() {
                 <Collapse in={open}>
                   <div className="sub-nav">
                     <Nav className="flex-column">
-                      <Nav.Link as={Link} to="/daily-menu">
+                      <Nav.Link as={Link} to="/daily-menu" eventKey="21">
                         Codzienne
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/fixed-menu">
+                      <Nav.Link as={Link} to="/fixed-menu" eventKey="22">
                         Stałe
                       </Nav.Link>
                     </Nav>
                   </div>
                 </Collapse>
               </Nav.Item>
-              <Nav.Link as={Link} to="/alerts">
+              <Nav.Link as={Link} to="/alerts" eventKey="3">
                 Komunikaty
               </Nav.Link>
-              <Nav.Link as={Link} to="/settings/opening-hours">
+              <Nav.Link as={Link} to="/settings/opening-hours" eventKey="4">
                 <FontAwesomeIcon icon={faCog} /> Ustawienia
               </Nav.Link>
               <hr />
               <div className="text-small text-muted ml-lg-2">
                 {cateringName}
               </div>
-              <Nav.Link href="#" onClick={logout} className="d-lg-none">
+              <Nav.Link
+                href="#"
+                onClick={logout}
+                className="d-lg-none"
+                eventKey="5"
+              >
                 Wyloguj ({username})
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 
           <Nav className="d-none d-lg-block">
-            <Nav.Link href="#" onClick={logout}>
+            <Nav.Link href="#" onClick={logout} eventKey="5">
               <Circle>{username && username[0]}</Circle>
               Wyloguj ({username})
             </Nav.Link>
           </Nav>
         </Navbar>
         <div className="main-container">
-          {/* <Container className="py-3"> */}
           <Switch>
             <Route path="/orders">
               <Orders />
@@ -138,7 +148,6 @@ function App() {
               <Dashboard />
             </Route>
           </Switch>
-          {/* </Container> */}
         </div>
       </div>
     </Router>
