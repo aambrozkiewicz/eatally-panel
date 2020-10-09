@@ -25,28 +25,20 @@ const Orders = () => {
           <Row className="justify-content-center">
             <Col lg="7">
               <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <h2 style={{ margin: 0 }}>Zamówienia</h2>
+                <div className="d-inline-block">
+                  <DatePicker
+                    customInput={
+                      <NiceButton className="bg-white text-dark">
+                        {formatDate(date, "iiii, d MMM")}
+                      </NiceButton>
+                    }
+                    popperPlacement="bottom-start"
+                    onChange={setDate}
+                  />
                 </div>
-                <div className="text-right">
-                  <div className="d-inline-block">
-                    <DatePicker
-                      customInput={
-                        <NiceButton className="bg-white text-dark">
-                          {formatDate(date, "iiii, d MMM")}
-                        </NiceButton>
-                      }
-                      popperPlacement="bottom-end"
-                      onChange={setDate}
-                    />
-                  </div>
-                  <NiceButton
-                    onClick={() => reload()}
-                    className="mt-2 mt-lg-0 ml-lg-2"
-                  >
-                    <FontAwesomeIcon icon={faSync} /> Odśwież
-                  </NiceButton>
-                </div>
+                <NiceButton onClick={() => reload()}>
+                  <FontAwesomeIcon icon={faSync} /> Odśwież
+                </NiceButton>
               </div>
             </Col>
           </Row>
@@ -56,7 +48,7 @@ const Orders = () => {
         <Row className="justify-content-center">
           <Col lg="7">
             <p>
-              Na łączną sumę <strong>{formatPrice(total)}</strong> zł
+              Zamówienia na łączną sumę <strong>{formatPrice(total)}</strong> zł
             </p>
 
             {loading && <Spinner animation="border" variant="primary" />}

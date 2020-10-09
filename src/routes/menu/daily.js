@@ -46,22 +46,22 @@ function Menu() {
       <div className="bg-white border-bottom py-4 mb-4">
         <Container>
           <Row className="justify-content-center">
-            <Col
-              lg="7"
-              className="d-flex justify-content-between align-items-center"
-            >
-              <h2 style={{ margin: 0 }}>
+            <Col lg="7">
+              {/* <h2 style={{ margin: 0 }}>
                 Menu na {formatDate(date, "iiii, d MMM")}
-              </h2>
-              <div style={{ whiteSpace: "nowrap" }}>
+              </h2> */}
+              <div
+                style={{ whiteSpace: "nowrap" }}
+                className="d-flex justify-content-between align-items-center"
+              >
                 <div className="d-inline-block">
                   <DatePicker
                     customInput={
                       <NiceButton className="bg-white text-dark">
-                        Zmień
+                        Menu na {formatDate(date, "iiii, d MMM")}
                       </NiceButton>
                     }
-                    popperPlacement="bottom-end"
+                    popperPlacement="bottom-start"
                     onChange={setDate}
                   />
                 </div>
