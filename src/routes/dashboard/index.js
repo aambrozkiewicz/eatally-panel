@@ -14,8 +14,6 @@ const Dashboard = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col lg="7">
-          <h4 className="mb-4 display-4">Dzień dobry!</h4>
-          <hr />
           {loading && (
             <Spinner animation="border" variant="primary" className="mb-3" />
           )}
@@ -39,7 +37,7 @@ const Dashboard = () => {
               </RippedPaper>
             </>
           )}
-          <p className="mt-4 lead">Ilość zamówień na dzień tygodnia</p>
+          <p className="mt-4 lead">Liczba zamówień / dzień tygodnia</p>
           <div className="bg-white p-2 shadow rounded d-flex justify-content-center">
             <Graph bars={byDay} />
           </div>

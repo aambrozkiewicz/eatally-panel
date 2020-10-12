@@ -47,9 +47,6 @@ function Menu() {
         <Container>
           <Row className="justify-content-center">
             <Col lg="7">
-              {/* <h2 style={{ margin: 0 }}>
-                Menu na {formatDate(date, "iiii, d MMM")}
-              </h2> */}
               <div
                 style={{ whiteSpace: "nowrap" }}
                 className="d-flex justify-content-between align-items-center"
