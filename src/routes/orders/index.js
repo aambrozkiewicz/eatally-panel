@@ -109,7 +109,10 @@ const Orders = () => {
                   <div className="py-2 border-top d-flex justify-content-between align-items-center">
                     {!order.pickup_location_id && (
                       <>
-                        <div>{order.address}</div>
+                        <div>
+                          <div>{order.address}</div>
+                          <div>{order.address_line_2}</div>
+                        </div>
                         <Button
                           size="sm"
                           variant="outline-primary"
