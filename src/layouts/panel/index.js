@@ -63,7 +63,12 @@ function App() {
           collapseOnSelect
         >
           <Navbar.Brand as={Link} to="/" className="ml-lg-2 mb-lg-5">
-            <img src={logo} width="100" className="filter-white my-2" />
+            <img
+              src={logo}
+              width="100"
+              className="filter-white my-2"
+              alt="eatally logo"
+            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
           <Navbar.Collapse
