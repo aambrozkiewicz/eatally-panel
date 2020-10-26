@@ -20,6 +20,7 @@ import Orders from "../../routes/orders";
 import Settings from "../../routes/settings";
 import { removeToken } from "../../utils/auth";
 import "./panel.css";
+import logo from "../../eatally_2.svg";
 
 const Circle = styled.span`
   display: inline-block;
@@ -62,7 +63,7 @@ function App() {
           collapseOnSelect
         >
           <Navbar.Brand as={Link} to="/" className="ml-lg-2 mb-lg-5">
-            eatally
+            <img src={logo} width="100" className="filter-white my-2" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="sidebar-navbar-nav" />
           <Navbar.Collapse

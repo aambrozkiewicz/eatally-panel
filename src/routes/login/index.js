@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from "react-router-dom";
 import { apiUrl } from "../../utils/api";
 import { setToken } from "../../utils/auth";
+import logo from "../../eatally_2.svg";
 
 const Login = () => {
   const history = useHistory();
@@ -49,7 +50,7 @@ const Login = () => {
       <Container>
         <Row className="justify-content-center">
           <Col md="7">
-            <h1>eatally</h1>
+            <img src={logo} width="150" alt="eatally logo" />
             <p className="lead">Zaloguj się aby kontynuować</p>
             <Form onSubmit={handleSubmit(login)} noValidate>
               <Form.Group>
