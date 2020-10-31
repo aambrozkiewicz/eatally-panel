@@ -72,6 +72,34 @@ function General() {
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={5} className="text-right">
+                Numer telefonu
+              </Form.Label>
+              <Col>
+                <Form.Control type="phone" name="phone" ref={register()} />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column sm={5} className="text-right">
+                E-mail kontaktowy
+              </Form.Label>
+              <Col>
+                <Form.Control type="email" name="email" ref={register()} />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column sm={5} className="text-right">
+                Pełny adres
+              </Form.Label>
+              <Col>
+                <Form.Control type="text" name="origin" ref={register()} />
+                <Form.Text muted>
+                  Adres początkowy, dla którego wyliczany jest koszt dostawy.
+                  Np. Nowowiejskiego 54 Poznań.
+                </Form.Text>
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column sm={5} className="text-right">
                 E-mail do powiadomień
               </Form.Label>
               <Col>

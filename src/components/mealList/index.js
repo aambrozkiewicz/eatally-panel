@@ -49,7 +49,7 @@ const MealItem = ({ meal, categories, ...props }) => {
 
 const MealList = (props) => {
   const { meals } = props;
-  const categories = useSelector((state) => state.panel.categories);
+  const categories = useSelector((state) => state.categories);
 
   return (
     <Meals>

@@ -13,7 +13,7 @@ function Menu() {
   const [showDrawer, setShowDrawer] = useState(false);
   const dispatch = useDispatch();
   const meals = useSelector((state) =>
-    Object.values(state.panel.meals).filter((m) => m.date === null)
+    Object.values(state.meals).filter((m) => m.date === null)
   );
 
   useEffect(() => {
