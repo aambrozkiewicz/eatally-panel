@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from "react-router-dom";
 import { apiUrl } from "../../utils/api";
 import { setToken } from "../../utils/auth";
-import logo from "../../eatally_2.svg";
+import logo from "../../images/eatally_2.svg";
 
 const Login = () => {
   const history = useHistory();

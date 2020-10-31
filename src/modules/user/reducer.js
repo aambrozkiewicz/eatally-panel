@@ -5,7 +5,11 @@ const reducer = createReducer(
   {},
   {
     [fetchMe.fulfilled]: (state, action) => {
-      return action.payload;
+      const user = {
+        ...action.payload,
+      };
+      delete user.catering;
+      return user;
     },
   }
 );

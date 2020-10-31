@@ -20,7 +20,7 @@ import Orders from "../../routes/orders";
 import Settings from "../../routes/settings";
 import { removeToken } from "../../utils/auth";
 import "./panel.css";
-import logo from "../../eatally_2.svg";
+import logo from "../../images/eatally_2.svg";
 
 const Circle = styled.span`
   display: inline-block;
@@ -40,7 +40,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username, catering: { name: cateringName } = {} } = useSelector(
-    (state) => state.panel.user
+    (state) => state.user
   );
 
   useEffect(() => {

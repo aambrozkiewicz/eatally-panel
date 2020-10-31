@@ -22,7 +22,7 @@ function Categories() {
   const [show, setShow] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.panel.categories);
+  const categories = useSelector((state) => state.categories);
   const { register, handleSubmit, errors, reset } = useForm();
 
   useEffect(() => {

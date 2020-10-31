@@ -66,7 +66,7 @@ function OpeningHours() {
               </Form.Group>
             ))}
             <div className="text-right">
-              <Button type="submit" disabled={saving}>
+              <Button type="submit" disabled={saving} variant="outline-primary">
                 {saving && <Spinner animation="border" size="sm" />} Zapisz
               </Button>
             </div>

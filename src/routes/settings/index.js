@@ -4,6 +4,7 @@ import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import Categories from "../categories";
 import OpeningHours from "../openingHours";
+import General from "./general";
 
 const CustomNav = styled(Nav)`
   background-color: #e9ebee;
@@ -40,6 +41,7 @@ function Settings() {
               Godziny otwarcia
             </CustomNavLink>
             <CustomNavLink to={`${url}/categories`}>Kategorie</CustomNavLink>
+            <CustomNavLink to={`${url}/general`}>Ogólne</CustomNavLink>
           </CustomNav>
         </Col>
       </Row>
@@ -50,6 +52,9 @@ function Settings() {
         </Route>
         <Route path={`${path}/categories`}>
           <Categories />
+        </Route>
+        <Route path={`${path}/general`}>
+          <General />
         </Route>
       </Switch>
     </Container>
