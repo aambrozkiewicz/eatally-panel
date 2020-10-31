@@ -25,7 +25,7 @@ function General() {
   useEffect(() => {
     reset(catering);
     setLogoSrc(catering.logo_path);
-  }, [catering]);
+  }, [catering, reset]);
 
   function logoChange(e) {
     const reader = new FileReader();
