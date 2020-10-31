@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, FormLabel, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -13,7 +13,19 @@ const Logo = styled.div`
   background: url(${(props) => props.bg});
   background-position: center center;
   background-size: cover;
-  margin: 0 0 0 auto;
+  margin: 0 auto 1rem auto;
+
+  @media screen and (min-width: 992px) {
+    margin: 0 0 0 auto;
+  }
+`;
+
+const RightLabel = styled(FormLabel)`
+  text-align: left;
+
+  @media screen and (min-width: 576px) {
+    text-align: right;
+  }
 `;
 
 function General() {
@@ -55,7 +67,7 @@ function General() {
         <div className="bg-white p-3 shadow-sm rounded">
           <Form onSubmit={handleSubmit(submit)}>
             <Form.Group as={Row} className="align-items-center">
-              <Col className="text-right" sm={5}>
+              <Col sm={5}>
                 <Logo bg={logoSrc} className="border shadow" />
               </Col>
               <Col>
@@ -63,33 +75,33 @@ function General() {
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
-              <Form.Label column sm={5} className="text-right">
+              <RightLabel column sm={5}>
                 Pełna nazwa
-              </Form.Label>
+              </RightLabel>
               <Col>
                 <Form.Control type="text" name="name" ref={register()} />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
-              <Form.Label column sm={5} className="text-right">
+              <RightLabel column sm={5}>
                 Numer telefonu
-              </Form.Label>
+              </RightLabel>
               <Col>
                 <Form.Control type="phone" name="phone" ref={register()} />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
-              <Form.Label column sm={5} className="text-right">
+              <RightLabel column sm={5}>
                 E-mail kontaktowy
-              </Form.Label>
+              </RightLabel>
               <Col>
                 <Form.Control type="email" name="email" ref={register()} />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
-              <Form.Label column sm={5} className="text-right">
+              <RightLabel column sm={5}>
                 Pełny adres
-              </Form.Label>
+              </RightLabel>
               <Col>
                 <Form.Control type="text" name="origin" ref={register()} />
                 <Form.Text muted>
@@ -99,9 +111,9 @@ function General() {
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
-              <Form.Label column sm={5} className="text-right">
+              <RightLabel column sm={5}>
                 E-mail do powiadomień
-              </Form.Label>
+              </RightLabel>
               <Col>
                 <Form.Control
                   type="email"
