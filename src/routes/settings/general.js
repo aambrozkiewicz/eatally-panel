@@ -15,7 +15,7 @@ const Logo = styled.div`
   background-size: cover;
   margin: 0 auto 1rem auto;
 
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: 576px) {
     margin: 0 0 0 auto;
   }
 `;
