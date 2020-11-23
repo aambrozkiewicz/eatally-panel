@@ -62,8 +62,13 @@ const MealForm = ({ className, ...props }) => {
       </FormGroup>
       <Form.Group controlId="exampleForm.ControlSelect2">
         <Form.Label>Kategoria</Form.Label>
-        <Form.Control as="select" name="category_id" ref={register()}>
-          <option value="">Bez kategorii</option>
+        <Form.Control
+          as="select"
+          name="category_id"
+          ref={register({ required: true })}
+          isInvalid={errors.category_id}
+        >
+          <option value="">Wybierz kategorię</option>
           {Object.values(categories).map((category, i) => (
             <option key={category.id} value={category.id}>
               {category.name}
