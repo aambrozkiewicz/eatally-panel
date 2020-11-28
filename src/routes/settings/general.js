@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, FormLabel, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setCatering } from "../../modules/catering/actions";
@@ -31,7 +31,11 @@ const RightLabel = styled(FormLabel)`
 function General() {
   const catering = useSelector((state) => state.catering);
   const [logoSrc, setLogoSrc] = useState();
-  const { handleSubmit, reset, register } = useForm();
+  const { handleSubmit, reset, register, control } = useForm();
+  const { fields, append } = useFieldArray({
+    control,
+    name: "delivery_ranges",
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -108,6 +112,37 @@ function General() {
                   Adres początkowy, dla którego wyliczany jest koszt dostawy.
                   Np. Nowowiejskiego 54 Poznań.
                 </Form.Text>
+                {fields.map((item, index) => (
+                  <Row className="my-2" key={item.id}>
+                    <Col>
+                      {index === 0 && <Form.Label>Do (km)</Form.Label>}
+                      <Form.Control
+                        type="text"
+                        name={`delivery_ranges[${index}].upper`}
+                        ref={register()}
+                        defaultValue={item.upper}
+                      />
+                    </Col>
+                    <Col>
+                      {index === 0 && <Form.Label>Koszt (zł)</Form.Label>}
+                      <Form.Control
+                        type="text"
+                        name={`delivery_ranges[${index}].cost`}
+                        ref={register()}
+                        defaultValue={item.cost}
+                      />
+                    </Col>
+                  </Row>
+                ))}
+                <div className="text-right">
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => append({ upper: "", cost: "" })}
+                  >
+                    Dodaj
+                  </Button>
+                </div>
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
